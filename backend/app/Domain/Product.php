@@ -13,14 +13,14 @@ final readonly class Product
         public array $options = [],
     ) {}
 
-    /** @param  array<string, mixed>  $data  one product from the website's menu.json */
-    public static function fromMenuJson(array $data): self
+    /** @param  array<string, mixed>  $data  one product as GET /api/v1/menu sends it */
+    public static function fromArray(array $data): self
     {
         return new self(
             id: $data['id'],
-            priceCents: Money::fromDollars($data['price']),
+            priceCents: (int) $data['price_cents'],
             drink: $data['drink'] ?? false,
-            options: array_map(OptionGroup::fromMenuJson(...), $data['options'] ?? []),
+            options: array_map(OptionGroup::fromArray(...), $data['options'] ?? []),
         );
     }
 }

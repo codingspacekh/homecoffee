@@ -15,6 +15,12 @@ enum UserRole: string
         return $this !== self::Customer;
     }
 
+    /** Managers and the owner edit the menu, promo codes and settings. */
+    public function canManageShop(): bool
+    {
+        return $this === self::Manager || $this === self::Owner;
+    }
+
     public function label(): string
     {
         return ucfirst($this->value);

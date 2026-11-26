@@ -21,10 +21,23 @@ cd backend
 composer install
 cp .env.example .env          # then set DB_DATABASE, DB_USERNAME, DB_PASSWORD
 php artisan key:generate
-php artisan migrate
+php artisan migrate --seed      # tables, plus the website's menu and photos
+php artisan storage:link        # serves product photos from storage/app/public
 php artisan homecoffee:owner you@example.com   # your admin panel account
 php artisan serve
 ```
+
+The seeder imports `backend/database/seeders/menu/menu.json`, a copy of the
+website's menu, and is safe to run again.
+
+### API
+
+| Method | Endpoint | What it returns |
+| --- | --- | --- |
+| GET | `/api/v1/menu` | Every category with its products, prices in cents, English and Khmer. Sends an ETag and answers `304` when the app already has the latest menu |
+| GET | `/api/v1/store` | Opening hours, prep time, `open_now` and `can_order_now` |
+
+Each phone or user can make 120 requests a minute.
 
 Open http://localhost:8000/admin and sign in. Only baristas, managers and the
 owner can open the admin panel; customers use the app.

@@ -12,9 +12,9 @@ final readonly class OptionGroup
     ) {}
 
     /** @param  array{name: string, choices: list<array<string, mixed>>}  $data */
-    public static function fromMenuJson(array $data): self
+    public static function fromArray(array $data): self
     {
-        return new self($data['name'], array_map(Choice::fromMenuJson(...), $data['choices']));
+        return new self($data['name'], array_map(Choice::fromArray(...), $data['choices']));
     }
 
     public function default(): Choice
