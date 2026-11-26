@@ -1,26 +1,26 @@
 import 'package:homecoffee_domain/homecoffee_domain.dart';
 
-/// Two products in the website's menu.json format.
+/// Two products in the GET /api/v1/menu format, with prices in cents.
 final cappuccino = Product.fromJson({
   'id': 12,
   'name': 'Cappuccino',
-  'price': 3.75,
+  'price_cents': 375,
   'drink': true,
-  'image': 'cappuccino.png',
+  'image_url': 'https://api.test/storage/products/cappuccino.webp',
   'options': [
     {
       'name': 'Size',
       'choices': [
-        {'label': 'Small', 'price': 0.00},
-        {'label': 'Medium', 'price': 0.50},
-        {'label': 'Large', 'price': 1.00},
+        {'label': 'Small', 'price_cents': 0},
+        {'label': 'Medium', 'price_cents': 50},
+        {'label': 'Large', 'price_cents': 100},
       ],
     },
     {
       'name': 'Milk',
       'choices': [
-        {'label': 'Whole', 'price': 0.00},
-        {'label': 'Oat', 'price': 0.60},
+        {'label': 'Whole', 'price_cents': 0},
+        {'label': 'Oat', 'price_cents': 60},
       ],
     },
   ],
@@ -29,6 +29,5 @@ final cappuccino = Product.fromJson({
 final croissant = Product.fromJson({
   'id': 41,
   'name': 'Croissant',
-  'price': 2.80,
-  'image': 'croissant.png',
+  'price_cents': 280,
 });

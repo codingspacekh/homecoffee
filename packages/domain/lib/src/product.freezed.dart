@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Translation {
 
- String? get name; String? get description;
+ String? get name; String? get description; String? get label;
 /// Create a copy of Translation
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $TranslationCopyWith<Translation> get copyWith => _$TranslationCopyWithImpl<Tran
 @override
 bool operator ==(Object other) {
   final _this = this as Translation;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Translation&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.description, _this.description) || other.description == _this.description));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Translation&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.label, _this.label) || other.label == _this.label));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as Translation;
-  return Object.hash(runtimeType,_this.name,_this.description);
+  return Object.hash(runtimeType,_this.name,_this.description,_this.label);
 }
 
 @override
 String toString() {
   final _this = this as Translation;
-  return 'Translation(name: ${_this.name}, description: ${_this.description})';
+  return 'Translation(name: ${_this.name}, description: ${_this.description}, label: ${_this.label})';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $TranslationCopyWith<$Res>  {
   factory $TranslationCopyWith(Translation value, $Res Function(Translation) _then) = _$TranslationCopyWithImpl;
 @useResult
 $Res call({
- String? name, String? description
+ String? name, String? description, String? label
 });
 
 
@@ -71,10 +71,11 @@ class _$TranslationCopyWithImpl<$Res>
 
 /// Create a copy of Translation
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? description = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? description = freezed,Object? label = freezed,}) {
   return _then(Translation(
 name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String?,label: freezed == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -160,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? name,  String? description)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? name,  String? description,  String? label)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Translation() when $default != null:
-return $default(_that.name,_that.description);case _:
+return $default(_that.name,_that.description,_that.label);case _:
   return orElse();
 
 }
@@ -181,10 +182,10 @@ return $default(_that.name,_that.description);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? name,  String? description)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? name,  String? description,  String? label)  $default,) {final _that = this;
 switch (_that) {
 case _Translation():
-return $default(_that.name,_that.description);case _:
+return $default(_that.name,_that.description,_that.label);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +202,10 @@ return $default(_that.name,_that.description);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? name,  String? description)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? name,  String? description,  String? label)?  $default,) {final _that = this;
 switch (_that) {
 case _Translation() when $default != null:
-return $default(_that.name,_that.description);case _:
+return $default(_that.name,_that.description,_that.label);case _:
   return null;
 
 }
@@ -216,11 +217,12 @@ return $default(_that.name,_that.description);case _:
 @JsonSerializable()
 
 class _Translation implements Translation {
-  const _Translation({this.name, this.description});
+  const _Translation({this.name, this.description, this.label});
   factory _Translation.fromJson(Map<String, dynamic> json) => _$TranslationFromJson(json);
 
 @override final  String? name;
 @override final  String? description;
+@override final  String? label;
 
 /// Create a copy of Translation
 /// with the given fields replaced by the non-null parameter values.
@@ -235,18 +237,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Translation&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Translation&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.label, label) || other.label == label));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,name,description);
+    return Object.hash(runtimeType,name,description,label);
 }
 
 @override
 String toString() {
-    return 'Translation(name: $name, description: $description)';
+    return 'Translation(name: $name, description: $description, label: $label)';
 }
 
 
@@ -257,7 +259,7 @@ abstract mixin class _$TranslationCopyWith<$Res> implements $TranslationCopyWith
   factory _$TranslationCopyWith(_Translation value, $Res Function(_Translation) _then) = __$TranslationCopyWithImpl;
 @override @useResult
 $Res call({
- String? name, String? description
+ String? name, String? description, String? label
 });
 
 
@@ -274,10 +276,11 @@ class __$TranslationCopyWithImpl<$Res>
 
 /// Create a copy of Translation
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = freezed,Object? description = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = freezed,Object? description = freezed,Object? label = freezed,}) {
   return _then(_Translation(
 name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String?,label: freezed == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -289,7 +292,7 @@ as String?,
 /// @nodoc
 mixin _$Choice {
 
- String get label;@CentsConverter() int get price;
+ String get label;@JsonKey(name: 'price_cents') int get price; Map<String, Translation> get translations;
 /// Create a copy of Choice
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -303,20 +306,20 @@ $ChoiceCopyWith<Choice> get copyWith => _$ChoiceCopyWithImpl<Choice>(this as Cho
 @override
 bool operator ==(Object other) {
   final _this = this as Choice;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Choice&&(identical(other.label, _this.label) || other.label == _this.label)&&(identical(other.price, _this.price) || other.price == _this.price));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Choice&&(identical(other.label, _this.label) || other.label == _this.label)&&(identical(other.price, _this.price) || other.price == _this.price)&&const DeepCollectionEquality().equals(other.translations, _this.translations));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as Choice;
-  return Object.hash(runtimeType,_this.label,_this.price);
+  return Object.hash(runtimeType,_this.label,_this.price,const DeepCollectionEquality().hash(_this.translations));
 }
 
 @override
 String toString() {
   final _this = this as Choice;
-  return 'Choice(label: ${_this.label}, price: ${_this.price})';
+  return 'Choice(label: ${_this.label}, price: ${_this.price}, translations: ${_this.translations})';
 }
 
 
@@ -327,7 +330,7 @@ abstract mixin class $ChoiceCopyWith<$Res>  {
   factory $ChoiceCopyWith(Choice value, $Res Function(Choice) _then) = _$ChoiceCopyWithImpl;
 @useResult
 $Res call({
- String label,@CentsConverter() int price
+ String label,@JsonKey(name: 'price_cents') int price, Map<String, Translation> translations
 });
 
 
@@ -344,11 +347,12 @@ class _$ChoiceCopyWithImpl<$Res>
 
 /// Create a copy of Choice
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? label = null,Object? price = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? label = null,Object? price = null,Object? translations = null,}) {
   return _then(Choice(
 label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
 as String,price: null == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
-as int,
+as int,translations: null == translations ? _self.translations : translations // ignore: cast_nullable_to_non_nullable
+as Map<String, Translation>,
   ));
 }
 
@@ -433,10 +437,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String label, @CentsConverter()  int price)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String label, @JsonKey(name: 'price_cents')  int price,  Map<String, Translation> translations)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Choice() when $default != null:
-return $default(_that.label,_that.price);case _:
+return $default(_that.label,_that.price,_that.translations);case _:
   return orElse();
 
 }
@@ -454,10 +458,10 @@ return $default(_that.label,_that.price);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String label, @CentsConverter()  int price)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String label, @JsonKey(name: 'price_cents')  int price,  Map<String, Translation> translations)  $default,) {final _that = this;
 switch (_that) {
 case _Choice():
-return $default(_that.label,_that.price);case _:
+return $default(_that.label,_that.price,_that.translations);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -474,10 +478,10 @@ return $default(_that.label,_that.price);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String label, @CentsConverter()  int price)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String label, @JsonKey(name: 'price_cents')  int price,  Map<String, Translation> translations)?  $default,) {final _that = this;
 switch (_that) {
 case _Choice() when $default != null:
-return $default(_that.label,_that.price);case _:
+return $default(_that.label,_that.price,_that.translations);case _:
   return null;
 
 }
@@ -488,12 +492,19 @@ return $default(_that.label,_that.price);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _Choice implements Choice {
-  const _Choice({required this.label, @CentsConverter() this.price = 0});
+class _Choice extends Choice {
+  const _Choice({required this.label, @JsonKey(name: 'price_cents') this.price = 0,  Map<String, Translation> translations = const {}}): _translations = translations,super._();
   factory _Choice.fromJson(Map<String, dynamic> json) => _$ChoiceFromJson(json);
 
 @override final  String label;
-@override@JsonKey()@CentsConverter() final  int price;
+@override@JsonKey(name: 'price_cents') final  int price;
+ final  Map<String, Translation> _translations;
+@override@JsonKey() Map<String, Translation> get translations {
+  if (_translations is EqualUnmodifiableMapView) return _translations;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_translations);
+}
+
 
 /// Create a copy of Choice
 /// with the given fields replaced by the non-null parameter values.
@@ -508,18 +519,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Choice&&(identical(other.label, label) || other.label == label)&&(identical(other.price, price) || other.price == price));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Choice&&(identical(other.label, label) || other.label == label)&&(identical(other.price, price) || other.price == price)&&const DeepCollectionEquality().equals(other.translations, _translations));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,label,price);
+    return Object.hash(runtimeType,label,price,const DeepCollectionEquality().hash(_translations));
 }
 
 @override
 String toString() {
-    return 'Choice(label: $label, price: $price)';
+    return 'Choice(label: $label, price: $price, translations: $translations)';
 }
 
 
@@ -530,7 +541,7 @@ abstract mixin class _$ChoiceCopyWith<$Res> implements $ChoiceCopyWith<$Res> {
   factory _$ChoiceCopyWith(_Choice value, $Res Function(_Choice) _then) = __$ChoiceCopyWithImpl;
 @override @useResult
 $Res call({
- String label,@CentsConverter() int price
+ String label,@JsonKey(name: 'price_cents') int price, Map<String, Translation> translations
 });
 
 
@@ -547,11 +558,12 @@ class __$ChoiceCopyWithImpl<$Res>
 
 /// Create a copy of Choice
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? label = null,Object? price = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? label = null,Object? price = null,Object? translations = null,}) {
   return _then(_Choice(
 label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
 as String,price: null == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
-as int,
+as int,translations: null == translations ? _self._translations : translations // ignore: cast_nullable_to_non_nullable
+as Map<String, Translation>,
   ));
 }
 
@@ -562,7 +574,7 @@ as int,
 /// @nodoc
 mixin _$OptionGroup {
 
- String get name; List<Choice> get choices;
+ String get name; List<Choice> get choices; Map<String, Translation> get translations;
 /// Create a copy of OptionGroup
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -576,20 +588,20 @@ $OptionGroupCopyWith<OptionGroup> get copyWith => _$OptionGroupCopyWithImpl<Opti
 @override
 bool operator ==(Object other) {
   final _this = this as OptionGroup;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OptionGroup&&(identical(other.name, _this.name) || other.name == _this.name)&&const DeepCollectionEquality().equals(other.choices, _this.choices));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OptionGroup&&(identical(other.name, _this.name) || other.name == _this.name)&&const DeepCollectionEquality().equals(other.choices, _this.choices)&&const DeepCollectionEquality().equals(other.translations, _this.translations));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as OptionGroup;
-  return Object.hash(runtimeType,_this.name,const DeepCollectionEquality().hash(_this.choices));
+  return Object.hash(runtimeType,_this.name,const DeepCollectionEquality().hash(_this.choices),const DeepCollectionEquality().hash(_this.translations));
 }
 
 @override
 String toString() {
   final _this = this as OptionGroup;
-  return 'OptionGroup(name: ${_this.name}, choices: ${_this.choices})';
+  return 'OptionGroup(name: ${_this.name}, choices: ${_this.choices}, translations: ${_this.translations})';
 }
 
 
@@ -600,7 +612,7 @@ abstract mixin class $OptionGroupCopyWith<$Res>  {
   factory $OptionGroupCopyWith(OptionGroup value, $Res Function(OptionGroup) _then) = _$OptionGroupCopyWithImpl;
 @useResult
 $Res call({
- String name, List<Choice> choices
+ String name, List<Choice> choices, Map<String, Translation> translations
 });
 
 
@@ -617,11 +629,12 @@ class _$OptionGroupCopyWithImpl<$Res>
 
 /// Create a copy of OptionGroup
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? choices = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? choices = null,Object? translations = null,}) {
   return _then(OptionGroup(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,choices: null == choices ? _self.choices : choices // ignore: cast_nullable_to_non_nullable
-as List<Choice>,
+as List<Choice>,translations: null == translations ? _self.translations : translations // ignore: cast_nullable_to_non_nullable
+as Map<String, Translation>,
   ));
 }
 
@@ -706,10 +719,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  List<Choice> choices)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  List<Choice> choices,  Map<String, Translation> translations)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _OptionGroup() when $default != null:
-return $default(_that.name,_that.choices);case _:
+return $default(_that.name,_that.choices,_that.translations);case _:
   return orElse();
 
 }
@@ -727,10 +740,10 @@ return $default(_that.name,_that.choices);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  List<Choice> choices)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  List<Choice> choices,  Map<String, Translation> translations)  $default,) {final _that = this;
 switch (_that) {
 case _OptionGroup():
-return $default(_that.name,_that.choices);case _:
+return $default(_that.name,_that.choices,_that.translations);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -747,10 +760,10 @@ return $default(_that.name,_that.choices);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  List<Choice> choices)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  List<Choice> choices,  Map<String, Translation> translations)?  $default,) {final _that = this;
 switch (_that) {
 case _OptionGroup() when $default != null:
-return $default(_that.name,_that.choices);case _:
+return $default(_that.name,_that.choices,_that.translations);case _:
   return null;
 
 }
@@ -761,8 +774,8 @@ return $default(_that.name,_that.choices);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _OptionGroup implements OptionGroup {
-  const _OptionGroup({required this.name, required  List<Choice> choices}): _choices = choices;
+class _OptionGroup extends OptionGroup {
+  const _OptionGroup({required this.name, required  List<Choice> choices,  Map<String, Translation> translations = const {}}): _choices = choices,_translations = translations,super._();
   factory _OptionGroup.fromJson(Map<String, dynamic> json) => _$OptionGroupFromJson(json);
 
 @override final  String name;
@@ -771,6 +784,13 @@ class _OptionGroup implements OptionGroup {
   if (_choices is EqualUnmodifiableListView) return _choices;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_choices);
+}
+
+ final  Map<String, Translation> _translations;
+@override@JsonKey() Map<String, Translation> get translations {
+  if (_translations is EqualUnmodifiableMapView) return _translations;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_translations);
 }
 
 
@@ -787,18 +807,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _OptionGroup&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.choices, _choices));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _OptionGroup&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.choices, _choices)&&const DeepCollectionEquality().equals(other.translations, _translations));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,name,const DeepCollectionEquality().hash(_choices));
+    return Object.hash(runtimeType,name,const DeepCollectionEquality().hash(_choices),const DeepCollectionEquality().hash(_translations));
 }
 
 @override
 String toString() {
-    return 'OptionGroup(name: $name, choices: $choices)';
+    return 'OptionGroup(name: $name, choices: $choices, translations: $translations)';
 }
 
 
@@ -809,7 +829,7 @@ abstract mixin class _$OptionGroupCopyWith<$Res> implements $OptionGroupCopyWith
   factory _$OptionGroupCopyWith(_OptionGroup value, $Res Function(_OptionGroup) _then) = __$OptionGroupCopyWithImpl;
 @override @useResult
 $Res call({
- String name, List<Choice> choices
+ String name, List<Choice> choices, Map<String, Translation> translations
 });
 
 
@@ -826,11 +846,12 @@ class __$OptionGroupCopyWithImpl<$Res>
 
 /// Create a copy of OptionGroup
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? choices = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? choices = null,Object? translations = null,}) {
   return _then(_OptionGroup(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,choices: null == choices ? _self._choices : choices // ignore: cast_nullable_to_non_nullable
-as List<Choice>,
+as List<Choice>,translations: null == translations ? _self._translations : translations // ignore: cast_nullable_to_non_nullable
+as Map<String, Translation>,
   ));
 }
 
@@ -841,7 +862,7 @@ as List<Choice>,
 /// @nodoc
 mixin _$Product {
 
- int get id; String get name;@CentsConverter() int get price; bool get drink; String get description; String get image; List<OptionGroup> get options; Map<String, Translation> get translations;
+ int get id; String get name;@JsonKey(name: 'price_cents') int get price; bool get drink; bool get available; String get description;@JsonKey(name: 'image_url') String? get imageUrl; List<OptionGroup> get options; Map<String, Translation> get translations;
 /// Create a copy of Product
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -855,20 +876,20 @@ $ProductCopyWith<Product> get copyWith => _$ProductCopyWithImpl<Product>(this as
 @override
 bool operator ==(Object other) {
   final _this = this as Product;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Product&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.price, _this.price) || other.price == _this.price)&&(identical(other.drink, _this.drink) || other.drink == _this.drink)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.image, _this.image) || other.image == _this.image)&&const DeepCollectionEquality().equals(other.options, _this.options)&&const DeepCollectionEquality().equals(other.translations, _this.translations));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Product&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.price, _this.price) || other.price == _this.price)&&(identical(other.drink, _this.drink) || other.drink == _this.drink)&&(identical(other.available, _this.available) || other.available == _this.available)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.imageUrl, _this.imageUrl) || other.imageUrl == _this.imageUrl)&&const DeepCollectionEquality().equals(other.options, _this.options)&&const DeepCollectionEquality().equals(other.translations, _this.translations));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as Product;
-  return Object.hash(runtimeType,_this.id,_this.name,_this.price,_this.drink,_this.description,_this.image,const DeepCollectionEquality().hash(_this.options),const DeepCollectionEquality().hash(_this.translations));
+  return Object.hash(runtimeType,_this.id,_this.name,_this.price,_this.drink,_this.available,_this.description,_this.imageUrl,const DeepCollectionEquality().hash(_this.options),const DeepCollectionEquality().hash(_this.translations));
 }
 
 @override
 String toString() {
   final _this = this as Product;
-  return 'Product(id: ${_this.id}, name: ${_this.name}, price: ${_this.price}, drink: ${_this.drink}, description: ${_this.description}, image: ${_this.image}, options: ${_this.options}, translations: ${_this.translations})';
+  return 'Product(id: ${_this.id}, name: ${_this.name}, price: ${_this.price}, drink: ${_this.drink}, available: ${_this.available}, description: ${_this.description}, imageUrl: ${_this.imageUrl}, options: ${_this.options}, translations: ${_this.translations})';
 }
 
 
@@ -879,7 +900,7 @@ abstract mixin class $ProductCopyWith<$Res>  {
   factory $ProductCopyWith(Product value, $Res Function(Product) _then) = _$ProductCopyWithImpl;
 @useResult
 $Res call({
- int id, String name,@CentsConverter() int price, bool drink, String description, String image, List<OptionGroup> options, Map<String, Translation> translations
+ int id, String name,@JsonKey(name: 'price_cents') int price, bool drink, bool available, String description,@JsonKey(name: 'image_url') String? imageUrl, List<OptionGroup> options, Map<String, Translation> translations
 });
 
 
@@ -896,15 +917,16 @@ class _$ProductCopyWithImpl<$Res>
 
 /// Create a copy of Product
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? price = null,Object? drink = null,Object? description = null,Object? image = null,Object? options = null,Object? translations = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? price = null,Object? drink = null,Object? available = null,Object? description = null,Object? imageUrl = freezed,Object? options = null,Object? translations = null,}) {
   return _then(Product(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,price: null == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
 as int,drink: null == drink ? _self.drink : drink // ignore: cast_nullable_to_non_nullable
+as bool,available: null == available ? _self.available : available // ignore: cast_nullable_to_non_nullable
 as bool,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String,image: null == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
-as String,options: null == options ? _self.options : options // ignore: cast_nullable_to_non_nullable
+as String,imageUrl: freezed == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
+as String?,options: null == options ? _self.options : options // ignore: cast_nullable_to_non_nullable
 as List<OptionGroup>,translations: null == translations ? _self.translations : translations // ignore: cast_nullable_to_non_nullable
 as Map<String, Translation>,
   ));
@@ -991,10 +1013,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name, @CentsConverter()  int price,  bool drink,  String description,  String image,  List<OptionGroup> options,  Map<String, Translation> translations)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name, @JsonKey(name: 'price_cents')  int price,  bool drink,  bool available,  String description, @JsonKey(name: 'image_url')  String? imageUrl,  List<OptionGroup> options,  Map<String, Translation> translations)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Product() when $default != null:
-return $default(_that.id,_that.name,_that.price,_that.drink,_that.description,_that.image,_that.options,_that.translations);case _:
+return $default(_that.id,_that.name,_that.price,_that.drink,_that.available,_that.description,_that.imageUrl,_that.options,_that.translations);case _:
   return orElse();
 
 }
@@ -1012,10 +1034,10 @@ return $default(_that.id,_that.name,_that.price,_that.drink,_that.description,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name, @CentsConverter()  int price,  bool drink,  String description,  String image,  List<OptionGroup> options,  Map<String, Translation> translations)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name, @JsonKey(name: 'price_cents')  int price,  bool drink,  bool available,  String description, @JsonKey(name: 'image_url')  String? imageUrl,  List<OptionGroup> options,  Map<String, Translation> translations)  $default,) {final _that = this;
 switch (_that) {
 case _Product():
-return $default(_that.id,_that.name,_that.price,_that.drink,_that.description,_that.image,_that.options,_that.translations);case _:
+return $default(_that.id,_that.name,_that.price,_that.drink,_that.available,_that.description,_that.imageUrl,_that.options,_that.translations);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1032,10 +1054,10 @@ return $default(_that.id,_that.name,_that.price,_that.drink,_that.description,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name, @CentsConverter()  int price,  bool drink,  String description,  String image,  List<OptionGroup> options,  Map<String, Translation> translations)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name, @JsonKey(name: 'price_cents')  int price,  bool drink,  bool available,  String description, @JsonKey(name: 'image_url')  String? imageUrl,  List<OptionGroup> options,  Map<String, Translation> translations)?  $default,) {final _that = this;
 switch (_that) {
 case _Product() when $default != null:
-return $default(_that.id,_that.name,_that.price,_that.drink,_that.description,_that.image,_that.options,_that.translations);case _:
+return $default(_that.id,_that.name,_that.price,_that.drink,_that.available,_that.description,_that.imageUrl,_that.options,_that.translations);case _:
   return null;
 
 }
@@ -1047,15 +1069,16 @@ return $default(_that.id,_that.name,_that.price,_that.drink,_that.description,_t
 @JsonSerializable()
 
 class _Product extends Product {
-  const _Product({required this.id, required this.name, @CentsConverter() required this.price, this.drink = false, this.description = '', required this.image,  List<OptionGroup> options = const [],  Map<String, Translation> translations = const {}}): _options = options,_translations = translations,super._();
+  const _Product({required this.id, required this.name, @JsonKey(name: 'price_cents') required this.price, this.drink = false, this.available = true, this.description = '', @JsonKey(name: 'image_url') this.imageUrl,  List<OptionGroup> options = const [],  Map<String, Translation> translations = const {}}): _options = options,_translations = translations,super._();
   factory _Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);
 
 @override final  int id;
 @override final  String name;
-@override@CentsConverter() final  int price;
+@override@JsonKey(name: 'price_cents') final  int price;
 @override@JsonKey() final  bool drink;
+@override@JsonKey() final  bool available;
 @override@JsonKey() final  String description;
-@override final  String image;
+@override@JsonKey(name: 'image_url') final  String? imageUrl;
  final  List<OptionGroup> _options;
 @override@JsonKey() List<OptionGroup> get options {
   if (_options is EqualUnmodifiableListView) return _options;
@@ -1084,18 +1107,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Product&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.price, price) || other.price == price)&&(identical(other.drink, drink) || other.drink == drink)&&(identical(other.description, description) || other.description == description)&&(identical(other.image, image) || other.image == image)&&const DeepCollectionEquality().equals(other.options, _options)&&const DeepCollectionEquality().equals(other.translations, _translations));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Product&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.price, price) || other.price == price)&&(identical(other.drink, drink) || other.drink == drink)&&(identical(other.available, available) || other.available == available)&&(identical(other.description, description) || other.description == description)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&const DeepCollectionEquality().equals(other.options, _options)&&const DeepCollectionEquality().equals(other.translations, _translations));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,name,price,drink,description,image,const DeepCollectionEquality().hash(_options),const DeepCollectionEquality().hash(_translations));
+    return Object.hash(runtimeType,id,name,price,drink,available,description,imageUrl,const DeepCollectionEquality().hash(_options),const DeepCollectionEquality().hash(_translations));
 }
 
 @override
 String toString() {
-    return 'Product(id: $id, name: $name, price: $price, drink: $drink, description: $description, image: $image, options: $options, translations: $translations)';
+    return 'Product(id: $id, name: $name, price: $price, drink: $drink, available: $available, description: $description, imageUrl: $imageUrl, options: $options, translations: $translations)';
 }
 
 
@@ -1106,7 +1129,7 @@ abstract mixin class _$ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
   factory _$ProductCopyWith(_Product value, $Res Function(_Product) _then) = __$ProductCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String name,@CentsConverter() int price, bool drink, String description, String image, List<OptionGroup> options, Map<String, Translation> translations
+ int id, String name,@JsonKey(name: 'price_cents') int price, bool drink, bool available, String description,@JsonKey(name: 'image_url') String? imageUrl, List<OptionGroup> options, Map<String, Translation> translations
 });
 
 
@@ -1123,15 +1146,16 @@ class __$ProductCopyWithImpl<$Res>
 
 /// Create a copy of Product
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? price = null,Object? drink = null,Object? description = null,Object? image = null,Object? options = null,Object? translations = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? price = null,Object? drink = null,Object? available = null,Object? description = null,Object? imageUrl = freezed,Object? options = null,Object? translations = null,}) {
   return _then(_Product(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,price: null == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
 as int,drink: null == drink ? _self.drink : drink // ignore: cast_nullable_to_non_nullable
+as bool,available: null == available ? _self.available : available // ignore: cast_nullable_to_non_nullable
 as bool,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String,image: null == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
-as String,options: null == options ? _self._options : options // ignore: cast_nullable_to_non_nullable
+as String,imageUrl: freezed == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
+as String?,options: null == options ? _self._options : options // ignore: cast_nullable_to_non_nullable
 as List<OptionGroup>,translations: null == translations ? _self._translations : translations // ignore: cast_nullable_to_non_nullable
 as Map<String, Translation>,
   ));
@@ -1144,7 +1168,7 @@ as Map<String, Translation>,
 /// @nodoc
 mixin _$Category {
 
- String get name; List<Product> get products; Map<String, Translation> get translations;
+ int? get id; String get name; List<Product> get products; Map<String, Translation> get translations;
 /// Create a copy of Category
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1158,20 +1182,20 @@ $CategoryCopyWith<Category> get copyWith => _$CategoryCopyWithImpl<Category>(thi
 @override
 bool operator ==(Object other) {
   final _this = this as Category;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Category&&(identical(other.name, _this.name) || other.name == _this.name)&&const DeepCollectionEquality().equals(other.products, _this.products)&&const DeepCollectionEquality().equals(other.translations, _this.translations));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Category&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&const DeepCollectionEquality().equals(other.products, _this.products)&&const DeepCollectionEquality().equals(other.translations, _this.translations));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as Category;
-  return Object.hash(runtimeType,_this.name,const DeepCollectionEquality().hash(_this.products),const DeepCollectionEquality().hash(_this.translations));
+  return Object.hash(runtimeType,_this.id,_this.name,const DeepCollectionEquality().hash(_this.products),const DeepCollectionEquality().hash(_this.translations));
 }
 
 @override
 String toString() {
   final _this = this as Category;
-  return 'Category(name: ${_this.name}, products: ${_this.products}, translations: ${_this.translations})';
+  return 'Category(id: ${_this.id}, name: ${_this.name}, products: ${_this.products}, translations: ${_this.translations})';
 }
 
 
@@ -1182,7 +1206,7 @@ abstract mixin class $CategoryCopyWith<$Res>  {
   factory $CategoryCopyWith(Category value, $Res Function(Category) _then) = _$CategoryCopyWithImpl;
 @useResult
 $Res call({
- String name, List<Product> products, Map<String, Translation> translations
+ int? id, String name, List<Product> products, Map<String, Translation> translations
 });
 
 
@@ -1199,9 +1223,10 @@ class _$CategoryCopyWithImpl<$Res>
 
 /// Create a copy of Category
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? products = null,Object? translations = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = null,Object? products = null,Object? translations = null,}) {
   return _then(Category(
-name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,products: null == products ? _self.products : products // ignore: cast_nullable_to_non_nullable
 as List<Product>,translations: null == translations ? _self.translations : translations // ignore: cast_nullable_to_non_nullable
 as Map<String, Translation>,
@@ -1289,10 +1314,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  List<Product> products,  Map<String, Translation> translations)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id,  String name,  List<Product> products,  Map<String, Translation> translations)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Category() when $default != null:
-return $default(_that.name,_that.products,_that.translations);case _:
+return $default(_that.id,_that.name,_that.products,_that.translations);case _:
   return orElse();
 
 }
@@ -1310,10 +1335,10 @@ return $default(_that.name,_that.products,_that.translations);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  List<Product> products,  Map<String, Translation> translations)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id,  String name,  List<Product> products,  Map<String, Translation> translations)  $default,) {final _that = this;
 switch (_that) {
 case _Category():
-return $default(_that.name,_that.products,_that.translations);case _:
+return $default(_that.id,_that.name,_that.products,_that.translations);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1330,10 +1355,10 @@ return $default(_that.name,_that.products,_that.translations);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  List<Product> products,  Map<String, Translation> translations)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id,  String name,  List<Product> products,  Map<String, Translation> translations)?  $default,) {final _that = this;
 switch (_that) {
 case _Category() when $default != null:
-return $default(_that.name,_that.products,_that.translations);case _:
+return $default(_that.id,_that.name,_that.products,_that.translations);case _:
   return null;
 
 }
@@ -1345,9 +1370,10 @@ return $default(_that.name,_that.products,_that.translations);case _:
 @JsonSerializable()
 
 class _Category extends Category {
-  const _Category({required this.name, required  List<Product> products,  Map<String, Translation> translations = const {}}): _products = products,_translations = translations,super._();
+  const _Category({this.id, required this.name, required  List<Product> products,  Map<String, Translation> translations = const {}}): _products = products,_translations = translations,super._();
   factory _Category.fromJson(Map<String, dynamic> json) => _$CategoryFromJson(json);
 
+@override final  int? id;
 @override final  String name;
  final  List<Product> _products;
 @override List<Product> get products {
@@ -1377,18 +1403,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Category&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.products, _products)&&const DeepCollectionEquality().equals(other.translations, _translations));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Category&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.products, _products)&&const DeepCollectionEquality().equals(other.translations, _translations));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,name,const DeepCollectionEquality().hash(_products),const DeepCollectionEquality().hash(_translations));
+    return Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(_products),const DeepCollectionEquality().hash(_translations));
 }
 
 @override
 String toString() {
-    return 'Category(name: $name, products: $products, translations: $translations)';
+    return 'Category(id: $id, name: $name, products: $products, translations: $translations)';
 }
 
 
@@ -1399,7 +1425,7 @@ abstract mixin class _$CategoryCopyWith<$Res> implements $CategoryCopyWith<$Res>
   factory _$CategoryCopyWith(_Category value, $Res Function(_Category) _then) = __$CategoryCopyWithImpl;
 @override @useResult
 $Res call({
- String name, List<Product> products, Map<String, Translation> translations
+ int? id, String name, List<Product> products, Map<String, Translation> translations
 });
 
 
@@ -1416,9 +1442,10 @@ class __$CategoryCopyWithImpl<$Res>
 
 /// Create a copy of Category
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? products = null,Object? translations = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = null,Object? products = null,Object? translations = null,}) {
   return _then(_Category(
-name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,products: null == products ? _self._products : products // ignore: cast_nullable_to_non_nullable
 as List<Product>,translations: null == translations ? _self._translations : translations // ignore: cast_nullable_to_non_nullable
 as Map<String, Translation>,

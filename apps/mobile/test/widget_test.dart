@@ -11,7 +11,7 @@ import 'fixtures.dart';
 class FakeMenuRepository implements MenuRepository {
   @override
   Future<List<Category>> fetchMenu() async => [
-    Category(name: 'SNACKS', products: [croissant]),
+    Category(name: 'Snacks', products: [croissant]),
   ];
 }
 

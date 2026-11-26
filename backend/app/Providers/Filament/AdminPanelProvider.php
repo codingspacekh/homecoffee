@@ -2,6 +2,8 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Support\Brand;
+use Filament\FontProviders\LocalFontProvider;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -9,7 +11,7 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
-use Filament\Support\Colors\Color;
+use Filament\View\PanelsRenderHook;
 use Filament\Widgets\AccountWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -29,10 +31,10 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->brandName('HomeCoffee')
             ->colors([
-                // The app's primary colour from the prototype's Foundations board.
-                'primary' => Color::hex('#7B4B2A'),
+                'primary' => Brand::primary(),
             ])
-            ->font('Figtree')
+            ->font('Figtree', url: fn (): string => Brand::fontCss(), provider: LocalFontProvider::class)
+            ->renderHook(PanelsRenderHook::HEAD_END, fn (): string => Brand::fontFallback())
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([

@@ -9,9 +9,9 @@ final readonly class Choice
         public int $priceCents = 0,
     ) {}
 
-    /** @param  array{label: string, price?: float|int}  $data */
-    public static function fromMenuJson(array $data): self
+    /** @param  array{label: string, price_cents?: int}  $data */
+    public static function fromArray(array $data): self
     {
-        return new self($data['label'], Money::fromDollars($data['price'] ?? 0));
+        return new self($data['label'], (int) ($data['price_cents'] ?? 0));
     }
 }

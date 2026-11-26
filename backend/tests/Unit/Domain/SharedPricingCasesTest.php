@@ -19,7 +19,7 @@ function fixtureProduct(int $id): Product
 {
     foreach (pricingFixtures()['products'] as $product) {
         if ($product['id'] === $id) {
-            return Product::fromMenuJson($product);
+            return Product::fromArray($product);
         }
     }
     throw new RuntimeException("No product {$id} in fixtures/pricing.json");
