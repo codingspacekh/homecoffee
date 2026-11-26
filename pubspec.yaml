@@ -1,0 +1,13 @@
+# Dart workspace: one `flutter pub get` here resolves every Dart package.
+# The Laravel backend lives in backend/ and is not part of it.
+name: homecoffee_workspace
+publish_to: none
+
+environment:
+  sdk: ^3.14.0
+
+workspace:
+  - apps/mobile
+  - packages/data
+  - packages/domain
+  - packages/ui

@@ -1,0 +1,16 @@
+name: homecoffee_data
+description: HomeCoffee API client and repositories. The only package that talks to the server.
+publish_to: none
+version: 0.1.0
+resolution: workspace
+
+environment:
+  sdk: ^3.14.0
+
+dependencies:
+  dio: ^5.11.1
+  homecoffee_domain:
+
+dev_dependencies:
+  lints: ^6.0.0
+  test: ^1.26.0

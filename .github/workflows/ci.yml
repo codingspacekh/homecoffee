@@ -1,0 +1,86 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    name: Laravel (PHP tests on MySQL)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_ROOT_PASSWORD: secret
+          MYSQL_DATABASE: homecoffee_test
+        ports: ['3306:3306']
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -psecret"
+          --health-interval=5s --health-timeout=5s --health-retries=20
+    env:
+      DB_CONNECTION: mysql
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_DATABASE: homecoffee_test
+      DB_USERNAME: root
+      DB_PASSWORD: secret
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, intl, pdo_mysql, zip, gd
+          coverage: none
+      - uses: actions/cache@v4
+        with:
+          path: ~/.composer/cache
+          key: composer-${{ hashFiles('backend/composer.lock') }}
+      - run: composer install --no-interaction --prefer-dist --no-progress
+      - run: cp .env.example .env && php artisan key:generate
+      - name: Code style
+        run: vendor/bin/pint --test
+      - name: Tests
+        run: vendor/bin/pest --ci
+
+  flutter:
+    name: Flutter (analyze and test)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.50.1'
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - name: Generated code is up to date
+        working-directory: packages/domain
+        run: |
+          dart run build_runner build --delete-conflicting-outputs
+          dart format lib
+          git diff --exit-code -- lib
+      - name: Format
+        run: dart format --output=none --set-exit-if-changed packages apps/mobile/lib apps/mobile/test
+      - name: Analyze
+        run: flutter analyze
+      - name: Domain tests (shared price cases)
+        working-directory: packages/domain
+        run: dart test
+      - name: Data tests
+        working-directory: packages/data
+        run: dart test
+      - name: UI tests
+        working-directory: packages/ui
+        run: flutter test
+      - name: App tests
+        working-directory: apps/mobile
+        run: flutter test

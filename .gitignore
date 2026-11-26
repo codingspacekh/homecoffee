@@ -1,0 +1,11 @@
+# Dart and Flutter
+.dart_tool/
+.flutter-plugins-dependencies
+build/
+coverage/
+
+# Editors and OS
+.DS_Store
+.idea/
+*.iml
+.vscode/

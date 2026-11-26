@@ -1,0 +1,118 @@
+{
+  "about": "Price cases shared by the Laravel tests (backend/tests/Unit/Domain) and the Dart tests (packages/domain/test). Both must pass on every case, so the server and the app always agree. Products use the website's menu.json format: prices in dollars. Every expected value is in cents.",
+  "products": [
+    {
+      "id": 12,
+      "name": "Cappuccino",
+      "price": 3.75,
+      "drink": true,
+      "description": "Espresso with steamed milk and foam.",
+      "image": "cappuccino.png",
+      "options": [
+        {
+          "name": "Size",
+          "choices": [
+            {"label": "Small", "price": 0.0},
+            {"label": "Medium", "price": 0.5},
+            {"label": "Large", "price": 1.0}
+          ]
+        },
+        {
+          "name": "Milk",
+          "choices": [
+            {"label": "Whole", "price": 0.0},
+            {"label": "Oat", "price": 0.6}
+          ]
+        }
+      ],
+      "translations": {"km": {"name": "កាពូឈីណូ"}}
+    },
+    {
+      "id": 41,
+      "name": "Croissant",
+      "price": 2.8,
+      "description": "Buttery, crescent-shaped French pastry",
+      "image": "croissant.png"
+    }
+  ],
+  "line_cases": [
+    {
+      "name": "large oat cappuccino with a note",
+      "line": {"product_id": 12, "options": {"Size": "Large", "Milk": "Oat"}, "note": " extra hot "},
+      "expected": {"options": {"Size": "Large", "Milk": "Oat"}, "unit_cents": 535, "key": "12|Size=Large|Milk=Oat|note=extra hot", "formatted": "$5.35"}
+    },
+    {
+      "name": "unknown choice falls back to the default",
+      "line": {"product_id": 12, "options": {"Size": "Huge"}},
+      "expected": {"options": {"Size": "Small", "Milk": "Whole"}, "unit_cents": 375, "key": "12", "formatted": "$3.75"}
+    },
+    {
+      "name": "product without options",
+      "line": {"product_id": 41},
+      "expected": {"options": {}, "unit_cents": 280, "key": "41", "formatted": "$2.80"}
+    }
+  ],
+  "promo_cases": [
+    {"code": " welcome10 ", "amount": 500, "problem": "none", "discount": 50},
+    {"code": "SAVE2", "amount": 999, "problem": "minimum", "discount": 0},
+    {"code": "SAVE2", "amount": 1000, "problem": "none", "discount": 200},
+    {"code": "NOPE", "amount": 5000, "problem": "unknown", "discount": 0},
+    {"code": "WELCOME10", "amount": 1005, "problem": "none", "discount": 101},
+    {"code": "SAVE2", "amount": 150, "problem": "minimum", "discount": 0}
+  ],
+  "order_cases": [
+    {
+      "name": "free drink first, then promo on what is left",
+      "lines": [
+        {"product_id": 12, "quantity": 2},
+        {"product_id": 41}
+      ],
+      "points": 60,
+      "use_reward": true,
+      "promo_code": "WELCOME10",
+      "expected": {"subtotal": 1030, "discount": 375, "promo_amount": 66, "total": 589, "points_earned": 5}
+    },
+    {
+      "name": "49 points is not enough for the free drink",
+      "lines": [
+        {"product_id": 41},
+        {"product_id": 12, "options": {"Size": "Large"}}
+      ],
+      "points": 49,
+      "use_reward": true,
+      "promo_code": "",
+      "expected": {"subtotal": 755, "discount": 0, "promo_amount": 0, "total": 755, "points_earned": 7}
+    },
+    {
+      "name": "50 points makes the most expensive drink free, never the pastry",
+      "lines": [
+        {"product_id": 41},
+        {"product_id": 12, "options": {"Size": "Large"}}
+      ],
+      "points": 50,
+      "use_reward": true,
+      "promo_code": "",
+      "expected": {"subtotal": 755, "discount": 475, "promo_amount": 0, "total": 280, "points_earned": 2}
+    },
+    {
+      "name": "SAVE2 on two large oat cappuccinos",
+      "lines": [
+        {"product_id": 12, "options": {"Size": "Large", "Milk": "Oat"}, "quantity": 2}
+      ],
+      "points": 0,
+      "use_reward": false,
+      "promo_code": "SAVE2",
+      "expected": {"subtotal": 1070, "discount": 0, "promo_amount": 200, "total": 870, "points_earned": 8}
+    },
+    {
+      "name": "SAVE2 under the $10 minimum gives nothing",
+      "lines": [
+        {"product_id": 12}
+      ],
+      "points": 0,
+      "use_reward": false,
+      "promo_code": "save2",
+      "expected": {"subtotal": 375, "discount": 0, "promo_amount": 0, "total": 375, "points_earned": 3}
+    }
+  ]
+}
