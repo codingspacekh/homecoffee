@@ -1,4 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- The app loads the menu from the HomeCoffee API -->
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:label="HomeCoffee"
         android:name="${applicationName}"
