@@ -1,0 +1,177 @@
+{
+  "@@locale": "en",
+  "skip": "Skip",
+  "continueLabel": "Continue",
+  "turnOnNotifications": "Turn on notifications",
+  "notNow": "Not now",
+  "stepOf": "Step {step} of 4",
+  "@stepOf": {
+    "placeholders": {
+      "step": {
+        "type": "int"
+      }
+    }
+  },
+  "welcomeTitle": "Welcome to HomeCoffee",
+  "welcomeBody": "Pick your language. You can change it any time in Account.",
+  "orderAheadTitle": "Order ahead, skip the line",
+  "orderAheadBody": "Choose your drink, pick a pickup time, and collect it at the counter when it’s ready.",
+  "pointsTitle": "Every dollar earns a point",
+  "pointsBody": "Collect 50 points and your next drink is on us.",
+  "pointsSample": "+5 points",
+  "notifyTitle": "Know when it’s ready",
+  "notifyBody": "We send one notification when your order is ready to pick up, and nothing else.",
+  "yourPoints": "Your points",
+  "sampleNotificationTitle": "Order #1042 is ready",
+  "sampleNotificationBody": "Come and pick it up at the counter.",
+  "now": "now",
+  "showWelcomeAgain": "Show welcome screens again",
+  "tabMenu": "Menu",
+  "tabOrders": "Orders",
+  "tabRewards": "Rewards",
+  "tabAccount": "Account",
+  "goodMorning": "Good morning",
+  "goodAfternoon": "Good afternoon",
+  "goodEvening": "Good evening",
+  "readyIn": "Ready for pickup in about {minutes} min",
+  "@readyIn": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "closedNow": "We’re closed right now. You can still look around.",
+  "menuError": "We couldn’t load the menu. Check your connection and try again.",
+  "tryAgain": "Try again",
+  "search": "Search the menu",
+  "clearSearch": "Clear search",
+  "categories": "Categories",
+  "all": "All",
+  "favourites": "Favourites",
+  "noResults": "No items match “{query}”",
+  "@noResults": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "noResultsHint": "Try another word or category.",
+  "noFavourites": "No favourites yet",
+  "noFavouritesHint": "Tap the heart on any drink to save it here.",
+  "clearFilters": "Clear filters",
+  "addItem": "Add {name}",
+  "@addItem": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "viewCart": "View cart",
+  "back": "Back",
+  "addFavourite": "Add to favourites",
+  "removeFavourite": "Remove from favourites",
+  "soldOut": "Sold out",
+  "productMissing": "This item is no longer on the menu.",
+  "note": "Note for the barista (optional)",
+  "noteHint": "e.g. extra hot, no lid",
+  "quantity": "Quantity",
+  "decrease": "Decrease quantity",
+  "increase": "Increase quantity",
+  "addToCart": "Add to cart",
+  "added": "{name} added to cart",
+  "@added": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "removed": "{name} removed",
+  "@removed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "undo": "Undo",
+  "yourCart": "Your cart",
+  "each": "{price} each",
+  "@each": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "addMore": "Add more items",
+  "subtotal": "Subtotal",
+  "toCheckout": "Go to checkout",
+  "cartEmpty": "Your cart is empty",
+  "browseMenu": "Browse the menu",
+  "noteLine": "Note: {note}",
+  "@noteLine": {
+    "placeholders": {
+      "note": {
+        "type": "String"
+      }
+    }
+  },
+  "removeItem": "Remove {name}",
+  "@removeItem": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "decreaseOf": "Decrease quantity of {name}",
+  "@decreaseOf": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "increaseOf": "Increase quantity of {name}",
+  "@increaseOf": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "earnPoints": "You’ll earn {points} points with this order",
+  "@earnPoints": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
+  "comingSoon": "Coming in a later version",
+  "noOrders": "No past orders yet",
+  "noOrdersHint": "Orders you place will show here, so you can track them and order again.",
+  "howItWorks": "How it works",
+  "how1": "Earn 1 point for every $1 you pay",
+  "how2": "50 points = 1 free drink",
+  "how3": "We take your most expensive drink off the bill",
+  "settings": "Settings",
+  "language": "Language",
+  "appearance": "Appearance",
+  "themeSystem": "System",
+  "themeLight": "Light",
+  "themeDark": "Dark",
+  "orderAlerts": "Order-ready alerts",
+  "itemCount": "{count, plural, =1{1 item} other{{count} items}}",
+  "@itemCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
+}
