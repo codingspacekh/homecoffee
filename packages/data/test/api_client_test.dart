@@ -135,4 +135,23 @@ void main() {
       );
     });
   });
+
+  test('reads the store hours answer', () async {
+    final adapter = FakeAdapter([
+      () => json({
+        'timezone': 'Asia/Phnom_Penh',
+        'prep_minutes': 9,
+        'open_now': true,
+        'can_order_now': false,
+      }),
+    ]);
+    final store = await ApiStoreRepository(
+      createApiClient(baseUrl: 'https://api.test/api/v1', adapter: adapter),
+    ).fetchStore();
+
+    expect(adapter.requests.single.path, '/store');
+    expect(store.prepMinutes, 9);
+    expect(store.openNow, isTrue);
+    expect(store.canOrderNow, isFalse);
+  });
 }

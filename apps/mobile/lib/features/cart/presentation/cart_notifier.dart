@@ -2,8 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:homecoffee_domain/homecoffee_domain.dart';
 
-/// Replaces app.store.cart and the "appcartchange" event: anything that
-/// watches cartProvider rebuilds when the cart changes.
+/// The cart. Anything that watches cartProvider rebuilds when it changes.
 class CartNotifier extends Notifier<List<CartItem>> {
   @override
   List<CartItem> build() => const [];
@@ -35,6 +34,12 @@ class CartNotifier extends Notifier<List<CartItem>> {
   void remove(String key) =>
       state = state.where((line) => line.key != key).toList();
 
+  /// Puts a removed line back where it was, for Undo.
+  void restore(CartItem item, int index) {
+    if (state.any((line) => line.key == item.key)) return;
+    state = [...state]..insert(index.clamp(0, state.length), item);
+  }
+
   void clear() => state = const [];
 }
 
@@ -42,7 +47,7 @@ final cartProvider = NotifierProvider<CartNotifier, List<CartItem>>(
   CartNotifier.new,
 );
 
-/// The badge on the Cart tab.
+/// The number on the View cart bar.
 final cartCountProvider = Provider<int>(
   (ref) => ref.watch(cartProvider).fold(0, (n, line) => n + line.quantity),
 );

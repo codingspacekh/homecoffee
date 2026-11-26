@@ -60,7 +60,16 @@ Needs Flutter 3.50. The Dart packages form one workspace, so a single
 flutter pub get
 cd apps/mobile
 flutter run --dart-define=API_URL=http://10.0.2.2:8000/api/v1   # Android emulator
+flutter run                                                      # iOS simulator, uses localhost
 ```
+
+Start the backend first (`php artisan serve`). The app keeps the last menu it
+downloaded and its photos on the phone, so after one successful start it opens
+with no signal too.
+
+App text lives in `apps/mobile/lib/l10n/app_en.arb` and `app_km.arb`. After
+editing either, run `flutter gen-l10n` in `apps/mobile` (a build also does it).
+Every key needs both languages.
 
 Tests:
 
@@ -75,7 +84,7 @@ flutter analyze
 After changing a model in `packages/domain`, regenerate its code:
 
 ```sh
-cd packages/domain && dart run build_runner build --delete-conflicting-outputs
+cd packages/domain && dart run build_runner build
 ```
 
 ## Prices

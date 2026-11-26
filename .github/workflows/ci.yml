@@ -65,9 +65,14 @@ jobs:
       - name: Generated code is up to date
         working-directory: packages/domain
         run: |
-          dart run build_runner build --delete-conflicting-outputs
+          dart run build_runner build
           dart format lib
           git diff --exit-code -- lib
+      - name: App text is up to date
+        working-directory: apps/mobile
+        run: |
+          flutter gen-l10n
+          git diff --exit-code -- lib/l10n
       - name: Format
         run: dart format --output=none --set-exit-if-changed packages apps/mobile/lib apps/mobile/test
       - name: Analyze

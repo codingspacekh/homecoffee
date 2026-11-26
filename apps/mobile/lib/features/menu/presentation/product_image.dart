@@ -1,32 +1,42 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:homecoffee_domain/homecoffee_domain.dart';
 import 'package:material_ui/material_ui.dart';
 
-/// A product photo with a coffee-cup placeholder when there is no photo, no
-/// signal, or the link is broken.
+/// A product photo, kept on the phone after the first download so the menu
+/// still has pictures with no signal. A coffee cup stands in when there is
+/// no photo or it can't load.
 class ProductImage extends StatelessWidget {
-  const ProductImage(this.product, {super.key, this.size});
+  const ProductImage(this.product, {super.key, this.size, this.height});
 
   final Product product;
+
+  /// Width and height of a square photo; null fills the width.
   final double? size;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
     final url = product.imageUrl;
-    if (url == null) return _placeholder(context);
-    return Image.network(
-      url,
-      width: size ?? double.infinity,
-      height: size,
+    final width = size ?? double.infinity;
+    final h = size ?? height;
+    Widget placeholder(BuildContext context, [Object? _, Object? _]) =>
+        Container(
+          width: width,
+          height: h,
+          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+          child: Icon(
+            Icons.local_cafe_outlined,
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
+        );
+    if (url == null) return placeholder(context);
+    return CachedNetworkImage(
+      imageUrl: url,
+      width: width,
+      height: h,
       fit: BoxFit.cover,
-      semanticLabel: product.name,
-      errorBuilder: (context, _, _) => _placeholder(context),
+      placeholder: (context, _) => placeholder(context),
+      errorWidget: placeholder,
     );
   }
-
-  Widget _placeholder(BuildContext context) => Container(
-    width: size,
-    height: size,
-    color: Theme.of(context).colorScheme.surfaceContainerHighest,
-    child: const Icon(Icons.local_cafe_outlined),
-  );
 }
