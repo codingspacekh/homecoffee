@@ -6,6 +6,7 @@ export 'src/account.dart';
 export 'src/api_client.dart';
 export 'src/api_problem.dart';
 export 'src/auth_repository.dart';
+export 'src/device_repository.dart';
 export 'src/live_status.dart';
 export 'src/menu_repository.dart';
 export 'src/orders.dart';

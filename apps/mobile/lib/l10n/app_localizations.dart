@@ -1278,6 +1278,18 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'The barista has started this order, so it can’t be cancelled now.'**
   String get errNotCancellable;
+
+  /// Snack bar when the customer turns on order alerts but said no to notifications on the system prompt
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications are off for HomeCoffee. Turn them on in your phone’s settings.'**
+  String get alertsBlocked;
+
+  /// Snack bar button that opens the order whose ready notification arrived while the app was open
+  ///
+  /// In en, this message translates to:
+  /// **'View'**
+  String get viewOrder;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {
