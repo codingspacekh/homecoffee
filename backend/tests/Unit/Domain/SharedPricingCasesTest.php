@@ -5,6 +5,7 @@ use App\Domain\Options;
 use App\Domain\OrderTotals;
 use App\Domain\Product;
 use App\Domain\Promo;
+use App\Domain\PromoProblem;
 
 /*
  * The same cases run in Dart (packages/domain/test). If the server and the app
@@ -49,13 +50,15 @@ it('prices a cart line', function (array $case) {
 })->with('line cases');
 
 it('checks a promo code', function (array $case) {
-    expect(Promo::problem($case['code'], $case['amount'])->value)->toBe($case['problem'])
-        ->and(Promo::discount($case['code'], $case['amount']))->toBe($case['discount']);
+    $promo = Promo::website($case['code']);
+
+    expect(($promo?->problem($case['amount']) ?? PromoProblem::Unknown)->value)->toBe($case['problem'])
+        ->and($promo?->discount($case['amount']) ?? 0)->toBe($case['discount']);
 })->with('promo cases');
 
 it('adds up an order', function (array $case) {
     $cart = array_map(fixtureLine(...), $case['lines']);
-    $totals = OrderTotals::for($cart, $case['points'], $case['use_reward'], $case['promo_code']);
+    $totals = OrderTotals::for($cart, $case['points'], $case['use_reward'], Promo::website($case['promo_code']));
 
     expect([
         'subtotal' => $totals->subtotal,

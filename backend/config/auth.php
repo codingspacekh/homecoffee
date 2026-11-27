@@ -99,6 +99,15 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+
+        // The admin panel's links: a staff invite and "forgot password".
+        // A day, so an invite sent in the evening still works next morning.
+        'staff' => [
+            'provider' => 'users',
+            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'expire' => 1440,
+            'throttle' => 60,
+        ],
     ],
 
     /*

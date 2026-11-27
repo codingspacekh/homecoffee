@@ -9,6 +9,7 @@ use App\Domain\Promo;
 use App\Domain\PromoProblem;
 use App\Exceptions\ApiProblem;
 use App\Models\Product;
+use App\Models\PromoCode;
 use App\Models\User;
 
 /**
@@ -20,7 +21,7 @@ class QuoteOrder
     /**
      * @param  array{lines: list<array{product_id: int, options?: array<string, string>, quantity?: int, note?: ?string}>, promo_code?: ?string, use_free_drink?: bool}  $input
      *
-     * @throws ApiProblem item_unavailable, not_enough_points, promo_invalid or promo_minimum
+     * @throws ApiProblem item_unavailable, not_enough_points, promo_invalid, promo_used or promo_minimum
      */
     public function handle(User $user, array $input): Quote
     {
@@ -50,15 +51,22 @@ class QuoteOrder
         }
 
         $promoCode = filled($input['promo_code'] ?? null) ? Promo::normalize($input['promo_code']) : null;
-        $totals = OrderTotals::for($lines, $user->points, $useReward, $promoCode ?? '');
+        $promo = null;
         if ($promoCode !== null) {
-            match (Promo::problem($promoCode, $totals->subtotal - $totals->discount)) {
-                PromoProblem::Unknown => throw new ApiProblem('promo_invalid', "{$promoCode} is not a valid code."),
-                PromoProblem::Minimum => throw new ApiProblem('promo_minimum', "{$promoCode} needs a bigger order.", [
-                    'minimum_cents' => Promo::minimum($promoCode),
-                ]),
-                PromoProblem::None => null,
+            $row = PromoCode::findByCode($promoCode);
+            $problem = $row === null ? 'promo_invalid' : $row->problemFor($user, now());
+            match ($problem) {
+                'promo_invalid' => throw new ApiProblem('promo_invalid', "{$promoCode} is not a valid code."),
+                'promo_used' => throw new ApiProblem('promo_used', "{$promoCode} can be used once, and this account already has."),
+                default => $promo = $row->toDomain(),
             };
+        }
+
+        $totals = OrderTotals::for($lines, $user->points, $useReward, $promo);
+        if ($promo?->problem($totals->subtotal - $totals->discount) === PromoProblem::Minimum) {
+            throw new ApiProblem('promo_minimum', "{$promoCode} needs a bigger order.", [
+                'minimum_cents' => $promo->minimum,
+            ]);
         }
 
         return new Quote($lines, $products, $totals, $promoCode);

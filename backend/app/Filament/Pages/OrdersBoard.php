@@ -7,6 +7,7 @@ use App\Actions\SetOrderStatus;
 use App\Enums\OrderStatus;
 use App\Exceptions\ApiProblem;
 use App\Models\Order;
+use App\Models\StoreSetting;
 use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Textarea;
@@ -117,6 +118,38 @@ class OrdersBoard extends Page
                 ->send();
         }
         unset($this->columns);
+    }
+
+    /**
+     * Pause orders: in a rush any barista can stop new app orders from the
+     * board, and turn them back on. Orders already placed stay on the board.
+     */
+    protected function getHeaderActions(): array
+    {
+        return [
+            Action::make('pause')
+                ->label('Pause app orders')
+                ->icon(Heroicon::OutlinedPauseCircle)
+                ->color('danger')
+                ->visible(fn () => StoreSetting::current()->accepting_orders)
+                ->requiresConfirmation()
+                ->modalHeading('Pause new app orders?')
+                ->modalDescription('Customers see that the shop has paused orders until you turn them back on. Orders already placed stay on the board.')
+                ->modalSubmitActionLabel('Pause orders')
+                ->action(function () {
+                    StoreSetting::current()->update(['accepting_orders' => false]);
+                    Notification::make()->title('App orders paused')->warning()->send();
+                }),
+            Action::make('resume')
+                ->label('Orders paused: turn back on')
+                ->icon(Heroicon::OutlinedPlayCircle)
+                ->color('success')
+                ->visible(fn () => ! StoreSetting::current()->accepting_orders)
+                ->action(function () {
+                    StoreSetting::current()->update(['accepting_orders' => true]);
+                    Notification::make()->title('Taking app orders again')->success()->send();
+                }),
+        ];
     }
 
     public function cancelAction(): Action
