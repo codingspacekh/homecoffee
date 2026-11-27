@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Policies;
+
+use App\Models\Order;
+use App\Models\User;
+
+/** In the app, customers see and cancel only their own orders. */
+class OrderPolicy
+{
+    public function view(User $user, Order $order): bool
+    {
+        return $order->user_id === $user->id;
+    }
+
+    public function cancel(User $user, Order $order): bool
+    {
+        return $order->user_id === $user->id;
+    }
+}

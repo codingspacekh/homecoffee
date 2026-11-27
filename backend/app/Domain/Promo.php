@@ -29,6 +29,12 @@ final class Promo
         return $amountCents < ($promo['minimum'] ?? 0) ? PromoProblem::Minimum : PromoProblem::None;
     }
 
+    /** The smallest order, in cents, the code works on. 0 when there is none. */
+    public static function minimum(string $code): int
+    {
+        return self::CODES[self::normalize($code)]['minimum'] ?? 0;
+    }
+
     /** Never more than the amount, so a total can't go below zero. */
     public static function discount(string $code, int $amountCents): int
     {
