@@ -375,6 +375,9 @@ class L10nEn extends L10n {
   String get errPromoUnknown => 'That code isn’t valid';
 
   @override
+  String get errPromoUsed => 'You’ve already used this code';
+
+  @override
   String errPromoMin(String code, String minimum) {
     return '$code needs an order of $minimum or more';
   }
@@ -556,6 +559,19 @@ class L10nEn extends L10n {
 
   @override
   String get pointsAdjusted => 'Changed by the shop';
+
+  @override
+  String get pointsAtCounter => 'Paid at the counter';
+
+  @override
+  String get memberCard => 'Member card';
+
+  @override
+  String get memberCardHint =>
+      'Paying at the counter? Show this code and the barista adds your points.';
+
+  @override
+  String get memberCodeLabel => 'Member code';
 
   @override
   String get noPointsYet => 'No points yet. Your first order starts it.';

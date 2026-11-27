@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:homecoffee_data/homecoffee_data.dart';
 import 'package:material_ui/material_ui.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../core/l10n.dart';
 import '../../core/session/session.dart';
@@ -30,9 +31,13 @@ class RewardsScreen extends ConsumerWidget {
         child: ListView(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 96),
           children: [
-            if (account != null)
-              PointsCard(account: account)
-            else
+            if (account != null) ...[
+              PointsCard(account: account),
+              if (account.memberQr != null) ...[
+                const SizedBox(height: 16),
+                MemberCard(account: account),
+              ],
+            ] else
               Material(
                 color: scheme.primaryContainer,
                 borderRadius: BorderRadius.circular(24),
@@ -169,6 +174,92 @@ class PointsCard extends StatelessWidget {
   }
 }
 
+/// The QR and 8-digit code a barista scans to add points for a purchase
+/// at the counter. The QR stays black on white in dark mode too, so the
+/// tablet camera can read it.
+class MemberCard extends StatelessWidget {
+  const MemberCard({super.key, required this.account});
+
+  final Account account;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.l10n;
+    final scheme = Theme.of(context).colorScheme;
+    return Material(
+      color: scheme.surfaceContainerLow,
+      borderRadius: BorderRadius.circular(24),
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Row(
+          children: [
+            Semantics(
+              label: t.memberCard,
+              image: true,
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: QrImageView(
+                  data: account.memberQr!,
+                  size: 128,
+                  padding: EdgeInsets.zero,
+                  eyeStyle: const QrEyeStyle(
+                    eyeShape: QrEyeShape.square,
+                    color: Colors.black,
+                  ),
+                  dataModuleStyle: const QrDataModuleStyle(
+                    dataModuleShape: QrDataModuleShape.square,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    t.memberCard,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    t.memberCardHint,
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: context.extras.bodyText,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Semantics(
+                    label: t.memberCodeLabel,
+                    child: SelectableText(
+                      account.memberCodeLabel!,
+                      style: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 1.5,
+                        fontFeatures: [FontFeature.tabularFigures()],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class _PointsHistory extends ConsumerWidget {
   const _PointsHistory();
 
@@ -208,6 +299,7 @@ class _PointsHistory extends ConsumerWidget {
                         ),
                         PointReason.reward => t.rewardUsed,
                         PointReason.refund => t.rewardRefunded,
+                        PointReason.counter => t.pointsAtCounter,
                         PointReason.adjustment => t.pointsAdjusted,
                       }, style: const TextStyle(fontSize: 16)),
                       Text(

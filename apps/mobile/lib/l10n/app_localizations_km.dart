@@ -377,6 +377,9 @@ class L10nKm extends L10n {
   String get errPromoUnknown => 'លេខកូដនេះមិនត្រឹមត្រូវទេ';
 
   @override
+  String get errPromoUsed => 'អ្នកបានប្រើលេខកូដនេះរួចហើយ';
+
+  @override
   String errPromoMin(String code, String minimum) {
     return '$code ត្រូវការការបញ្ជាទិញចាប់ពី $minimum ឡើងទៅ';
   }
@@ -558,6 +561,19 @@ class L10nKm extends L10n {
 
   @override
   String get pointsAdjusted => 'កែប្រែដោយហាង';
+
+  @override
+  String get pointsAtCounter => 'បានបង់ប្រាក់នៅបញ្ជរ';
+
+  @override
+  String get memberCard => 'កាតសមាជិក';
+
+  @override
+  String get memberCardHint =>
+      'បង់ប្រាក់នៅបញ្ជរមែនទេ? បង្ហាញលេខកូដនេះ ហើយបារីស្តានឹងបន្ថែមពិន្ទុឱ្យអ្នក។';
+
+  @override
+  String get memberCodeLabel => 'លេខកូដសមាជិក';
 
   @override
   String get noPointsYet =>

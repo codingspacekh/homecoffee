@@ -22,6 +22,7 @@ String problemText(
   ),
   'not_enough_points' => t.errNoPoints,
   'promo_invalid' => t.errPromoUnknown,
+  'promo_used' => t.errPromoUsed,
   'promo_minimum' => t.errPromoMin(
     promoCode,
     formatPrice(problem.details['minimum_cents'] as int? ?? 0),
