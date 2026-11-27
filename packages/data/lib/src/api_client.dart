@@ -9,10 +9,12 @@ const apiUrl = String.fromEnvironment(
 );
 
 /// A Dio set up for the HomeCoffee API: JSON in and out, and the customer's
-/// Sanctum token on every request once they have signed in.
+/// Sanctum token on every request once they have signed in. A 401 on a
+/// signed-in request calls [onSignedOut], so the app forgets the token.
 Dio createApiClient({
   String baseUrl = apiUrl,
   String? Function()? token,
+  void Function()? onSignedOut,
   HttpClientAdapter? adapter,
 }) {
   final dio = Dio(
@@ -30,6 +32,12 @@ Dio createApiClient({
         final value = token?.call();
         if (value != null) options.headers['Authorization'] = 'Bearer $value';
         handler.next(options);
+      },
+      onError: (error, handler) {
+        // The token was revoked or the account removed on another phone
+        final sentToken = error.requestOptions.headers['Authorization'] != null;
+        if (error.response?.statusCode == 401 && sentToken) onSignedOut?.call();
+        handler.next(error);
       },
     ),
   );

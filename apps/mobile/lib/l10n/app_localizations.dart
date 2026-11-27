@@ -505,12 +505,6 @@ abstract class L10n {
   /// **'You’ll earn {points} points with this order'**
   String earnPoints(int points);
 
-  /// No description provided for @comingSoon.
-  ///
-  /// In en, this message translates to:
-  /// **'Coming in a later version'**
-  String get comingSoon;
-
   /// No description provided for @noOrders.
   ///
   /// In en, this message translates to:
@@ -594,6 +588,696 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'{count, plural, =1{1 item} other{{count} items}}'**
   String itemCount(int count);
+
+  /// No description provided for @checkout.
+  ///
+  /// In en, this message translates to:
+  /// **'Checkout'**
+  String get checkout;
+
+  /// No description provided for @pickupTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Pickup time'**
+  String get pickupTime;
+
+  /// No description provided for @asap.
+  ///
+  /// In en, this message translates to:
+  /// **'As soon as possible'**
+  String get asap;
+
+  /// No description provided for @readyInAbout.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready in about {minutes} min'**
+  String readyInAbout(int minutes);
+
+  /// No description provided for @scheduleLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule for later'**
+  String get scheduleLater;
+
+  /// No description provided for @chooseTimeBelow.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a time below'**
+  String get chooseTimeBelow;
+
+  /// No description provided for @noSlotsToday.
+  ///
+  /// In en, this message translates to:
+  /// **'No more pickup times today'**
+  String get noSlotsToday;
+
+  /// No description provided for @yourDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Your details'**
+  String get yourDetails;
+
+  /// No description provided for @name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get name;
+
+  /// No description provided for @phone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number'**
+  String get phone;
+
+  /// No description provided for @phoneHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'We only call if there’s a problem with your order.'**
+  String get phoneHelp;
+
+  /// No description provided for @errName.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your name'**
+  String get errName;
+
+  /// No description provided for @errPhoneMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your phone number'**
+  String get errPhoneMissing;
+
+  /// No description provided for @errPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid phone number'**
+  String get errPhone;
+
+  /// No description provided for @rewardsPromo.
+  ///
+  /// In en, this message translates to:
+  /// **'Rewards and promo code'**
+  String get rewardsPromo;
+
+  /// No description provided for @useReward.
+  ///
+  /// In en, this message translates to:
+  /// **'Use my free drink (−{amount})'**
+  String useReward(String amount);
+
+  /// No description provided for @freeDrink.
+  ///
+  /// In en, this message translates to:
+  /// **'Free drink'**
+  String get freeDrink;
+
+  /// No description provided for @promo.
+  ///
+  /// In en, this message translates to:
+  /// **'Promo code'**
+  String get promo;
+
+  /// No description provided for @apply.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get apply;
+
+  /// No description provided for @promoApplied.
+  ///
+  /// In en, this message translates to:
+  /// **'{code} applied'**
+  String promoApplied(String code);
+
+  /// No description provided for @promoLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Promo {code}'**
+  String promoLine(String code);
+
+  /// No description provided for @removePromo.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove promo code {code}'**
+  String removePromo(String code);
+
+  /// No description provided for @errPromoEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a promo code'**
+  String get errPromoEmpty;
+
+  /// No description provided for @errPromoUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'That code isn’t valid'**
+  String get errPromoUnknown;
+
+  /// No description provided for @errPromoMin.
+  ///
+  /// In en, this message translates to:
+  /// **'{code} needs an order of {minimum} or more'**
+  String errPromoMin(String code, String minimum);
+
+  /// No description provided for @remainingPoints.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} more points for a free drink'**
+  String remainingPoints(int count);
+
+  /// No description provided for @haveReward.
+  ///
+  /// In en, this message translates to:
+  /// **'You have a free drink! Turn it on at checkout.'**
+  String get haveReward;
+
+  /// No description provided for @payment.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment'**
+  String get payment;
+
+  /// No description provided for @payCounter.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay at the counter'**
+  String get payCounter;
+
+  /// No description provided for @payKhqr.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay with KHQR'**
+  String get payKhqr;
+
+  /// No description provided for @soon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming soon'**
+  String get soon;
+
+  /// No description provided for @summary.
+  ///
+  /// In en, this message translates to:
+  /// **'Order summary'**
+  String get summary;
+
+  /// No description provided for @total.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get total;
+
+  /// No description provided for @placeOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Place order'**
+  String get placeOrder;
+
+  /// No description provided for @checkFields.
+  ///
+  /// In en, this message translates to:
+  /// **'Please check the highlighted fields'**
+  String get checkFields;
+
+  /// No description provided for @statusTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Order status'**
+  String get statusTitle;
+
+  /// No description provided for @showNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Show this number at the counter'**
+  String get showNumber;
+
+  /// No description provided for @statusReceived.
+  ///
+  /// In en, this message translates to:
+  /// **'Received'**
+  String get statusReceived;
+
+  /// No description provided for @statusPreparing.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing'**
+  String get statusPreparing;
+
+  /// No description provided for @statusReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready'**
+  String get statusReady;
+
+  /// No description provided for @statusCollected.
+  ///
+  /// In en, this message translates to:
+  /// **'Picked up'**
+  String get statusCollected;
+
+  /// No description provided for @statusCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get statusCancelled;
+
+  /// No description provided for @receivedText.
+  ///
+  /// In en, this message translates to:
+  /// **'We’ve got your order. Ready around {time}.'**
+  String receivedText(String time);
+
+  /// No description provided for @preparingText.
+  ///
+  /// In en, this message translates to:
+  /// **'We’re making your order. Ready around {time}.'**
+  String preparingText(String time);
+
+  /// No description provided for @readyText.
+  ///
+  /// In en, this message translates to:
+  /// **'Your order is ready to pick up!'**
+  String get readyText;
+
+  /// No description provided for @collectedText.
+  ///
+  /// In en, this message translates to:
+  /// **'Picked up. Enjoy!'**
+  String get collectedText;
+
+  /// No description provided for @cancelledText.
+  ///
+  /// In en, this message translates to:
+  /// **'This order was cancelled.'**
+  String get cancelledText;
+
+  /// No description provided for @pickupAsap.
+  ///
+  /// In en, this message translates to:
+  /// **'Pickup as soon as possible'**
+  String get pickupAsap;
+
+  /// No description provided for @pickupAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Pickup at {time}'**
+  String pickupAt(String time);
+
+  /// No description provided for @notifyMe.
+  ///
+  /// In en, this message translates to:
+  /// **'Notify me when it’s ready'**
+  String get notifyMe;
+
+  /// No description provided for @earnedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'+{points} points'**
+  String earnedTitle(int points);
+
+  /// No description provided for @earnedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You now have {balance} points.'**
+  String earnedBody(int balance);
+
+  /// No description provided for @rewardReady.
+  ///
+  /// In en, this message translates to:
+  /// **'You’ve earned a free drink! Use it on your next order.'**
+  String get rewardReady;
+
+  /// No description provided for @items.
+  ///
+  /// In en, this message translates to:
+  /// **'Items'**
+  String get items;
+
+  /// No description provided for @backToMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to menu'**
+  String get backToMenu;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// No description provided for @cancelOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel order'**
+  String get cancelOrder;
+
+  /// No description provided for @cancelOrderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel this order?'**
+  String get cancelOrderTitle;
+
+  /// No description provided for @cancelOrderBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The barista hasn’t started it yet. A free drink you used goes back to your points.'**
+  String get cancelOrderBody;
+
+  /// No description provided for @keepOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep order'**
+  String get keepOrder;
+
+  /// No description provided for @orderCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Order cancelled'**
+  String get orderCancelled;
+
+  /// No description provided for @orderMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn’t load this order.'**
+  String get orderMissing;
+
+  /// No description provided for @inProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'In progress'**
+  String get inProgress;
+
+  /// No description provided for @pastOrders.
+  ///
+  /// In en, this message translates to:
+  /// **'Past orders'**
+  String get pastOrders;
+
+  /// No description provided for @track.
+  ///
+  /// In en, this message translates to:
+  /// **'Track'**
+  String get track;
+
+  /// No description provided for @reorder.
+  ///
+  /// In en, this message translates to:
+  /// **'Reorder'**
+  String get reorder;
+
+  /// No description provided for @reorderLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reorder order #{number}'**
+  String reorderLabel(int number);
+
+  /// No description provided for @reordered.
+  ///
+  /// In en, this message translates to:
+  /// **'Order #{number} added to cart'**
+  String reordered(int number);
+
+  /// No description provided for @reorderMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Those items aren’t on the menu now'**
+  String get reorderMissing;
+
+  /// No description provided for @loadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Show more'**
+  String get loadMore;
+
+  /// No description provided for @pointsOutOf.
+  ///
+  /// In en, this message translates to:
+  /// **'/ {total} points'**
+  String pointsOutOf(int total);
+
+  /// No description provided for @pointsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Points'**
+  String get pointsLabel;
+
+  /// No description provided for @pointsHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Points history'**
+  String get pointsHistory;
+
+  /// No description provided for @orderNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Order #{number}'**
+  String orderNumber(int number);
+
+  /// No description provided for @rewardUsed.
+  ///
+  /// In en, this message translates to:
+  /// **'Free drink used'**
+  String get rewardUsed;
+
+  /// No description provided for @rewardRefunded.
+  ///
+  /// In en, this message translates to:
+  /// **'Free drink given back'**
+  String get rewardRefunded;
+
+  /// No description provided for @pointsAdjusted.
+  ///
+  /// In en, this message translates to:
+  /// **'Changed by the shop'**
+  String get pointsAdjusted;
+
+  /// No description provided for @noPointsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No points yet. Your first order starts it.'**
+  String get noPointsYet;
+
+  /// No description provided for @edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get edit;
+
+  /// No description provided for @signOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out'**
+  String get signOut;
+
+  /// No description provided for @forgetRow.
+  ///
+  /// In en, this message translates to:
+  /// **'Forget my data'**
+  String get forgetRow;
+
+  /// No description provided for @forgetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Forget your data?'**
+  String get forgetTitle;
+
+  /// No description provided for @forgetBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This deletes your account, points and favourites. Past orders stay in the shop’s records without your name or phone.'**
+  String get forgetBody;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @forget.
+  ///
+  /// In en, this message translates to:
+  /// **'Forget'**
+  String get forget;
+
+  /// No description provided for @forgotten.
+  ///
+  /// In en, this message translates to:
+  /// **'Your data was removed'**
+  String get forgotten;
+
+  /// No description provided for @addName.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your name'**
+  String get addName;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get saved;
+
+  /// No description provided for @signIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in'**
+  String get signIn;
+
+  /// No description provided for @signInTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to order'**
+  String get signInTitle;
+
+  /// No description provided for @signInBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email and we’ll send you a 6-digit code. No password needed.'**
+  String get signInBody;
+
+  /// No description provided for @signInHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to keep your points and see your orders on any phone.'**
+  String get signInHint;
+
+  /// No description provided for @email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// No description provided for @sendCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Send code'**
+  String get sendCode;
+
+  /// No description provided for @errEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email address'**
+  String get errEmail;
+
+  /// No description provided for @codeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Check your email'**
+  String get codeTitle;
+
+  /// No description provided for @codeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'We sent a 6-digit code to {email}. It works for 10 minutes.'**
+  String codeBody(String email);
+
+  /// No description provided for @code.
+  ///
+  /// In en, this message translates to:
+  /// **'Code'**
+  String get code;
+
+  /// No description provided for @errCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter the 6 digits from the email'**
+  String get errCode;
+
+  /// No description provided for @errCodeWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{That code isn’t right. Send a new code.} =1{That code isn’t right. 1 try left.} other{That code isn’t right. {count} tries left.}}'**
+  String errCodeWrong(int count);
+
+  /// No description provided for @errCodeExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'This code has expired. Send a new one.'**
+  String get errCodeExpired;
+
+  /// No description provided for @sendNewCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Send a new code'**
+  String get sendNewCode;
+
+  /// No description provided for @codeSent.
+  ///
+  /// In en, this message translates to:
+  /// **'We sent a new code'**
+  String get codeSent;
+
+  /// No description provided for @otherEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Use another email'**
+  String get otherEmail;
+
+  /// No description provided for @errOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'No connection. Check your internet and try again.'**
+  String get errOffline;
+
+  /// No description provided for @errTooMany.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many tries. Please wait a minute.'**
+  String get errTooMany;
+
+  /// No description provided for @errServer.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again.'**
+  String get errServer;
+
+  /// No description provided for @errSignedOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Please sign in again.'**
+  String get errSignedOut;
+
+  /// No description provided for @errItemUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} is sold out now. Remove it to continue.'**
+  String errItemUnavailable(String name);
+
+  /// No description provided for @errNoPoints.
+  ///
+  /// In en, this message translates to:
+  /// **'You don’t have enough points for a free drink.'**
+  String get errNoPoints;
+
+  /// No description provided for @errStoreClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'The shop is closed right now. Choose a pickup time later today.'**
+  String get errStoreClosed;
+
+  /// No description provided for @errOrdersPaused.
+  ///
+  /// In en, this message translates to:
+  /// **'The shop isn’t taking app orders right now. Please try again soon.'**
+  String get errOrdersPaused;
+
+  /// No description provided for @errPickupTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Please choose a later pickup time while the shop is open.'**
+  String get errPickupTime;
+
+  /// No description provided for @errNotCancellable.
+  ///
+  /// In en, this message translates to:
+  /// **'The barista has started this order, so it can’t be cancelled now.'**
+  String get errNotCancellable;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {
