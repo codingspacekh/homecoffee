@@ -72,6 +72,9 @@ class L10nEn extends L10n {
   String get showWelcomeAgain => 'Show welcome screens again';
 
   @override
+  String get privacyPolicy => 'Privacy policy';
+
+  @override
   String get tabMenu => 'Menu';
 
   @override

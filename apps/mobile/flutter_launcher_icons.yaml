@@ -1,0 +1,15 @@
+# Makes every app icon size from the three pictures in assets/icon.
+# After changing a picture, run from apps/mobile:
+#   dart pub global activate flutter_launcher_icons
+#   dart pub global run flutter_launcher_icons
+flutter_launcher_icons:
+  image_path: assets/icon/icon.png
+  android: true
+  # Android 8 and later: the cup on the brand brown, cropped to the phone's shape
+  adaptive_icon_background: "#7B4B2A"
+  adaptive_icon_foreground: assets/icon/foreground.png
+  # Android 13 themed icons tint this one to match the wallpaper
+  adaptive_icon_monochrome: assets/icon/monochrome.png
+  ios: true
+  # The App Store refuses an icon with transparency
+  remove_alpha_ios: true

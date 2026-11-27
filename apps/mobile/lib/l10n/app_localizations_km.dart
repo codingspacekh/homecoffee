@@ -73,6 +73,9 @@ class L10nKm extends L10n {
   String get showWelcomeAgain => 'បង្ហាញទំព័រស្វាគមន៍ម្តងទៀត';
 
   @override
+  String get privacyPolicy => 'គោលការណ៍ឯកជនភាព';
+
+  @override
   String get tabMenu => 'ម៉ឺនុយ';
 
   @override

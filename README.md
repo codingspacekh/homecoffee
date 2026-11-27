@@ -219,6 +219,15 @@ After changing a model in `packages/domain`, regenerate its code:
 cd packages/domain && dart run build_runner build
 ```
 
+## Releasing
+
+- **Server**: `backend/deploy/README.md` sets up one Ubuntu server with HTTPS,
+  live status, the queue worker and nightly encrypted backups. After that,
+  every merge to `main` that passes CI updates the server.
+- **App**: `apps/mobile/RELEASE.md` gets the app to testers through TestFlight
+  and Google Play internal testing. The **App builds** workflow makes the
+  Android bundle and checks the iOS build.
+
 ## Prices
 
 Money is always whole cents: $3.75 is `375`. The rules live twice, in PHP
