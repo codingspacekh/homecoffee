@@ -4,15 +4,6 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
-// Firebase settings for "your order is ready" pushes, from
-// apps/mobile/firebase.json (see the README). The Dart side reads the same
-// file with --dart-define-from-file. Without it the app builds with pushes off.
-val firebase: Map<String, String>? =
-    rootProject.file("../firebase.json").takeIf { it.exists() }?.let {
-        @Suppress("UNCHECKED_CAST")
-        groovy.json.JsonSlurper().parse(it) as Map<String, String>
-    }
-
 android {
     namespace = "com.codingspacekh.homecoffee"
     compileSdk = flutter.compileSdkVersion
@@ -36,19 +27,6 @@ android {
         // flag during build.
         versionCode = flutter.versionCode
         versionName = flutter.versionName
-
-        // What google-services.json would provide, so Firebase starts with the
-        // app and can show a push even when the app isn't running
-        firebase?.let {
-            resValue("string", "google_app_id", it.getValue("FIREBASE_ANDROID_APP_ID"))
-            resValue("string", "google_api_key", it.getValue("FIREBASE_ANDROID_API_KEY"))
-            resValue("string", "gcm_defaultSenderId", it.getValue("FIREBASE_SENDER_ID"))
-            resValue("string", "project_id", it.getValue("FIREBASE_PROJECT_ID"))
-        }
-    }
-
-    buildFeatures {
-        resValues = true
     }
 
     buildTypes {
