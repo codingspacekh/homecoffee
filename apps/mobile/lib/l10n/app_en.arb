@@ -232,6 +232,7 @@
   },
   "errPromoEmpty": "Please enter a promo code",
   "errPromoUnknown": "That code isn’t valid",
+  "errPromoUsed": "You’ve already used this code",
   "errPromoMin": "{code} needs an order of {minimum} or more",
   "@errPromoMin": {
     "placeholders": {
@@ -365,6 +366,10 @@
   "rewardUsed": "Free drink used",
   "rewardRefunded": "Free drink given back",
   "pointsAdjusted": "Changed by the shop",
+  "pointsAtCounter": "Paid at the counter",
+  "memberCard": "Member card",
+  "memberCardHint": "Paying at the counter? Show this code and the barista adds your points.",
+  "memberCodeLabel": "Member code",
   "noPointsYet": "No points yet. Your first order starts it.",
   "edit": "Edit",
   "signOut": "Sign out",

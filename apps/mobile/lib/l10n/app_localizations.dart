@@ -733,6 +733,12 @@ abstract class L10n {
   /// **'That code isn’t valid'**
   String get errPromoUnknown;
 
+  /// No description provided for @errPromoUsed.
+  ///
+  /// In en, this message translates to:
+  /// **'You’ve already used this code'**
+  String get errPromoUsed;
+
   /// No description provided for @errPromoMin.
   ///
   /// In en, this message translates to:
@@ -1050,6 +1056,30 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Changed by the shop'**
   String get pointsAdjusted;
+
+  /// No description provided for @pointsAtCounter.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid at the counter'**
+  String get pointsAtCounter;
+
+  /// No description provided for @memberCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Member card'**
+  String get memberCard;
+
+  /// No description provided for @memberCardHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Paying at the counter? Show this code and the barista adds your points.'**
+  String get memberCardHint;
+
+  /// No description provided for @memberCodeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Member code'**
+  String get memberCodeLabel;
 
   /// No description provided for @noPointsYet.
   ///

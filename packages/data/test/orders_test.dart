@@ -213,6 +213,7 @@ void main() {
             'language': 'km',
             'points': 52,
             'reward_points': 50,
+            'member_code': '48213075',
             'has_reward': true,
           },
         }),
@@ -231,6 +232,8 @@ void main() {
       expect(signIn.newAccount, isTrue);
       expect(signIn.account.hasReward, isTrue);
       expect(signIn.account.language, 'km');
+      expect(signIn.account.memberCodeLabel, '4821 3075');
+      expect(signIn.account.memberQr, 'homecoffee:member:48213075');
     });
   });
 

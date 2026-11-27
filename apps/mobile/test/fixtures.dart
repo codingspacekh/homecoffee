@@ -106,6 +106,7 @@ const dara = Account(
   name: 'Dara',
   phone: '012 345 678',
   points: 12,
+  memberCode: '48213075',
 );
 
 /// The server, in memory: it signs in with code 123456, prices carts with
@@ -184,6 +185,12 @@ class TestBackend
       reason: PointReason.order,
       orderNumber: 1001,
       createdAt: DateTime.utc(2026, 11, 26, 2),
+    ),
+    PointEntry(
+      id: 2,
+      change: 4,
+      reason: PointReason.counter,
+      createdAt: DateTime.utc(2026, 11, 25, 2),
     ),
   ]);
 

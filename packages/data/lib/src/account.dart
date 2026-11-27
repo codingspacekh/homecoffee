@@ -8,6 +8,7 @@ class Account {
     this.language = 'en',
     this.points = 0,
     this.rewardPoints = 50,
+    this.memberCode,
   });
 
   factory Account.fromJson(Map<String, dynamic> json) => Account(
@@ -18,6 +19,7 @@ class Account {
     language: json['language'] as String? ?? 'en',
     points: json['points'] as int? ?? 0,
     rewardPoints: json['reward_points'] as int? ?? 50,
+    memberCode: json['member_code'] as String?,
   );
 
   final int id;
@@ -29,6 +31,21 @@ class Account {
 
   /// Points for one free drink.
   final int rewardPoints;
+
+  /// 8 digits the barista scans or types to add points for a purchase at
+  /// the counter.
+  final String? memberCode;
+
+  /// The text inside the member QR. The admin panel reads the 8 digits.
+  String? get memberQr =>
+      memberCode == null ? null : 'homecoffee:member:$memberCode';
+
+  /// "1234 5678", easier to read out.
+  String? get memberCodeLabel => switch (memberCode) {
+    final code? when code.length == 8 =>
+      '${code.substring(0, 4)} ${code.substring(4)}',
+    final code => code,
+  };
 
   bool get hasReward => points >= rewardPoints;
 
@@ -43,6 +60,7 @@ class Account {
     'language': language,
     'points': points,
     'reward_points': rewardPoints,
+    'member_code': memberCode,
   };
 
   Account copyWith({int? points, String? name, String? phone}) => Account(
@@ -53,6 +71,7 @@ class Account {
     language: language,
     points: points ?? this.points,
     rewardPoints: rewardPoints,
+    memberCode: memberCode,
   );
 }
 
@@ -75,7 +94,15 @@ class SignIn {
   final bool newAccount;
 }
 
-enum PointReason { order, reward, refund, adjustment }
+enum PointReason {
+  order,
+  reward,
+  refund,
+
+  /// Points for paying at the counter, added by the barista.
+  counter,
+  adjustment,
+}
 
 /// One line of the points history.
 class PointEntry {

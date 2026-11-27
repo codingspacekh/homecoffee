@@ -4,6 +4,7 @@ import 'package:homecoffee/features/cart/presentation/cart_notifier.dart';
 import 'package:homecoffee/features/menu/data/menu_providers.dart';
 import 'package:homecoffee_data/homecoffee_data.dart';
 import 'package:material_ui/material_ui.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 import 'fixtures.dart';
 
@@ -273,8 +274,37 @@ void main() {
     expect(find.text('12'), findsOneWidget);
     expect(find.text('/ 50 points'), findsOneWidget);
     expect(find.text('38 more points for a free drink'), findsOneWidget);
-    await tester.scrollUntilVisible(find.text('Order #1001'), 200);
+    // The member card the barista scans at the counter
+    expect(find.text('Member card'), findsOneWidget);
+    expect(find.text('4821 3075'), findsOneWidget);
+    expect(find.byType(QrImageView), findsOneWidget);
+    // The code is selectable text, which has a scrollable of its own
+    final list = find.byType(Scrollable).first;
+    await tester.scrollUntilVisible(
+      find.text('Order #1001'),
+      200,
+      scrollable: list,
+    );
     expect(find.text('+12'), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.text('Paid at the counter'),
+      200,
+      scrollable: list,
+    );
+    expect(find.text('+4'), findsOneWidget);
+  });
+
+  testWidgets('no member card until the server sends a code', (tester) async {
+    await pumpApp(
+      tester,
+      signedIn: true,
+      backend: TestBackend(
+        account: const Account(id: 7, email: 'dara@example.com', points: 3),
+      ),
+    );
+    await tester.tap(find.text('Rewards'));
+    await tester.pumpAndSettle();
+    expect(find.text('Member card'), findsNothing);
   });
 
   testWidgets('favourites move to the account on sign-in', (tester) async {
