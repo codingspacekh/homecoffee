@@ -32,12 +32,52 @@ website's menu, and is safe to run again.
 
 ### API
 
-| Method | Endpoint | What it returns |
-| --- | --- | --- |
-| GET | `/api/v1/menu` | Every category with its products, prices in cents, English and Khmer. Sends an ETag and answers `304` when the app already has the latest menu |
-| GET | `/api/v1/store` | Opening hours, prep time, `open_now` and `can_order_now` |
+Everything is under `/api/v1` and speaks JSON. Signed-in requests send
+`Authorization: Bearer <token>`. The app sends choices, never prices: the
+server prices every cart from the products table.
 
-Each phone or user can make 120 requests a minute.
+| Method | Endpoint | What it does |
+| --- | --- | --- |
+| GET | `/menu` | Every category with its products, prices in cents, English and Khmer. Sends an ETag and answers `304` when the app already has the latest menu |
+| GET | `/store` | Opening hours, prep time, `open_now` and `can_order_now` |
+| POST | `/auth/code` | Emails a 6-digit sign-in code, valid 10 minutes. 5 a minute per email |
+| POST | `/auth/verify` | Checks the code, creates the account the first time, returns a token |
+| POST | `/auth/logout` | Signs out this phone |
+| GET, PATCH, DELETE | `/me` | Profile and points; change name, phone, language; forget my data |
+| GET | `/me/favourites` | Favourite product ids |
+| PUT, DELETE | `/me/favourites/{product}` | Add or remove a favourite |
+| GET | `/me/points` | Points history |
+| POST | `/checkout/quote` | Server totals for a cart, promo code and free drink |
+| POST | `/orders` | Places an order. Needs an `Idempotency-Key` header, so a retry never makes two |
+| GET | `/orders`, `/orders/{order}` | Own orders, newest first, with their lines |
+| POST | `/orders/{order}/cancel` | Cancels while the order is still received |
+
+A broken rule answers `422` with a code the app translates, for example
+`{"code": "promo_minimum", "minimum_cents": 1000}`. The codes are
+`item_unavailable`, `promo_invalid`, `promo_minimum`, `not_enough_points`,
+`store_closed`, `orders_paused`, `pickup_outside_hours`, `order_not_cancellable`,
+`code_invalid` and `code_expired`.
+
+Each phone or user can make 120 requests a minute, and place 10 orders a minute.
+
+### Sign-in emails and live status
+
+With `MAIL_MAILER=log` (the default), sign-in codes go to
+`storage/logs/laravel.log` instead of an inbox. Set a real mailer (Resend,
+Postmark or Mailgun) before inviting anyone.
+
+Order status changes reach the app through Reverb, on the private channel
+`orders.{id}`. The app joins it at `POST /api/broadcasting/auth` with its token.
+To try it locally, set the `REVERB_*` values and `BROADCAST_CONNECTION=reverb`
+in `.env`, then run these next to `php artisan serve`:
+
+```sh
+php artisan reverb:start
+php artisan queue:work
+```
+
+Points are spent on a free drink when the order is placed, given back if it is
+cancelled, and earned when the order is collected.
 
 Open http://localhost:8000/admin and sign in. Only baristas, managers and the
 owner can open the admin panel; customers use the app.
