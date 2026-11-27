@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /** One line of a customer's points history. */
-#[Fillable(['user_id', 'order_id', 'change', 'reason'])]
+#[Fillable(['user_id', 'order_id', 'staff_id', 'change', 'reason', 'note'])]
 class PointEntry extends Model
 {
     public const UPDATED_AT = null;
@@ -19,6 +19,18 @@ class PointEntry extends Model
             'change' => 'integer',
             'reason' => PointReason::class,
         ];
+    }
+
+    /** Who added or took away the points by hand, for counter and adjusted entries. */
+    public function staff(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'staff_id');
+    }
+
+    /** @return BelongsTo<User, $this> */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     /** @return BelongsTo<Order, $this> */

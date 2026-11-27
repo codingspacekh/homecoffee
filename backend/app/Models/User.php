@@ -49,6 +49,32 @@ class User extends Authenticatable implements FilamentUser
         ];
     }
 
+    protected static function booted(): void
+    {
+        static::creating(function (self $user) {
+            $user->member_code ??= self::newMemberCode();
+        });
+    }
+
+    /**
+     * 8 digits for the member QR, easy to type at the counter when the camera
+     * can't read it.
+     */
+    public static function newMemberCode(): string
+    {
+        do {
+            $code = (string) random_int(10_000_000, 99_999_999);
+        } while (self::where('member_code', $code)->exists());
+
+        return $code;
+    }
+
+    /** "1234 5678", as the app shows it. */
+    public function memberCodeLabel(): string
+    {
+        return trim(chunk_split((string) $this->member_code, 4, ' '));
+    }
+
     /** Only baristas, managers and the owner can open the admin panel. */
     public function canAccessPanel(Panel $panel): bool
     {
@@ -89,6 +115,7 @@ class User extends Authenticatable implements FilamentUser
             'phone' => $this->phone,
             'language' => $this->language,
             'points' => $this->points,
+            'member_code' => $this->member_code,
             'reward_points' => Loyalty::REWARD_POINTS,
             'has_reward' => Loyalty::hasReward($this->points),
         ];

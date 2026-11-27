@@ -43,7 +43,7 @@ server prices every cart from the products table.
 | POST | `/auth/code` | Emails a 6-digit sign-in code, valid 10 minutes. 5 a minute per email |
 | POST | `/auth/verify` | Checks the code, creates the account the first time, returns a token |
 | POST | `/auth/logout` | Signs out this phone |
-| GET, PATCH, DELETE | `/me` | Profile and points; change name, phone, language; forget my data |
+| GET, PATCH, DELETE | `/me` | Profile, points and the 8-digit `member_code`; change name, phone, language; forget my data |
 | GET | `/me/favourites` | Favourite product ids |
 | PUT, DELETE | `/me/favourites/{product}` | Add or remove a favourite |
 | GET | `/me/points` | Points history |
@@ -55,7 +55,7 @@ server prices every cart from the products table.
 
 A broken rule answers `422` with a code the app translates, for example
 `{"code": "promo_minimum", "minimum_cents": 1000}`. The codes are
-`item_unavailable`, `promo_invalid`, `promo_minimum`, `not_enough_points`,
+`item_unavailable`, `promo_invalid`, `promo_used`, `promo_minimum`, `not_enough_points`,
 `store_closed`, `orders_paused`, `pickup_outside_hours`, `order_not_cancellable`,
 `code_invalid` and `code_expired`.
 
@@ -95,6 +95,46 @@ the app.
 Tap **Turn on sound** once each morning: browsers only play sound and keep the
 screen awake after a tap on the page. The tablet remembers the choice, and the
 board chimes for each new order after that.
+
+### Running the shop
+
+Everything else happens in the admin panel, and what each person sees depends
+on their role.
+
+| Role | Can use |
+| --- | --- |
+| Barista | Orders board, Counter points, and marking products sold out |
+| Manager | Also the menu, Promo codes, Orders, Customers, Shop settings and Reports |
+| Owner | Everything, including Staff |
+
+- **Counter points** (`/admin/counter-points`): for customers who pay at the
+  counter without ordering in the app. Scan the QR on the Rewards tab of their
+  app with the tablet camera, or type their member code, phone or email. Enter
+  what they paid and they get a point per whole dollar. **Give free drink**
+  takes 50 points. The tablet needs the camera allowed for the site, and the
+  admin panel on HTTPS (or localhost).
+- **Promo codes**: a percent or an amount off, with a minimum order, start and
+  end dates, a total number of uses and once per customer. `WELCOME10` and
+  `SAVE2`, the website's codes, are seeded. A code that was used can be turned
+  off but not deleted.
+- **Orders**: every order, searchable by number, name or phone, filtered by
+  status and day. A manager can cancel an open order with a reason.
+- **Customers**: each customer's orders and points history. **Adjust points**
+  adds or takes away points with a note, for example after a mistake.
+- **Shop settings**: opening hours for each day (or closed), how long an order
+  takes to make, and **Take new orders in the app**. Baristas can also pause
+  and resume app orders from the top of the orders board in a rush.
+- **Reports**: sales, orders, average order, best sellers and promo code use
+  for today, this week, last month or any days, and **Download orders (CSV)**
+  for a spreadsheet. Only orders that were picked up count as sales. Managers
+  see today and this week on the dashboard too.
+- **Staff**: the owner invites people by email and picks their role. They get
+  a link to choose a password, which works for 24 hours (**Send invite again**
+  makes a new one). Someone who already uses the app keeps their points.
+  **Remove** signs them out and makes them a customer again. Nobody can change
+  their own role, so the shop always has an owner.
+
+Invites and "Forgot password" are emails, so set a real mailer first.
 
 ### "Your order is ready" pushes
 

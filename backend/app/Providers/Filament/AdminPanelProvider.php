@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Support\Brand;
+use App\Filament\Support\InitialsAvatar;
 use Filament\FontProviders\LocalFontProvider;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -29,6 +30,9 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->passwordReset()
+            ->authPasswordBroker('staff')
+            ->defaultAvatarProvider(InitialsAvatar::class)
             ->brandName('HomeCoffee')
             ->colors([
                 'primary' => Brand::primary(),

@@ -3,6 +3,7 @@
 use App\Enums\OrderStatus;
 use App\Enums\UserRole;
 use App\Filament\Pages\OrdersBoard;
+use App\Models\StoreSetting;
 use App\Models\User;
 use Filament\Facades\Filament;
 use Illuminate\Support\Carbon;
@@ -134,4 +135,20 @@ it('counts new orders on the menu badge', function () {
     makeOrder(['status' => OrderStatus::Preparing]);
 
     expect(OrdersBoard::getNavigationBadge())->toBe('2');
+});
+
+it('lets a barista pause app orders in a rush and turn them back on', function () {
+    $this->actingAs(User::factory()->barista()->create());
+
+    livewire(OrdersBoard::class)
+        ->assertActionVisible('pause')
+        ->assertActionHidden('resume')
+        ->callAction('pause')
+        ->assertNotified('App orders paused');
+    expect(StoreSetting::current()->accepting_orders)->toBeFalse();
+
+    livewire(OrdersBoard::class)
+        ->assertActionHidden('pause')
+        ->callAction('resume');
+    expect(StoreSetting::current()->accepting_orders)->toBeTrue();
 });

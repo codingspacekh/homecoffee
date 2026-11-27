@@ -3,50 +3,66 @@
 namespace App\Domain;
 
 /**
- * The website's services/Promo.js. Codes are hard-coded for now, as on the website.
- * They move to the promo_codes table in Phase 4.
+ * The website's services/Promo.js: a percentage or an amount off, with an
+ * optional smallest order. Which codes exist, and whether one can still be
+ * used, comes from the promo_codes table (App\Models\PromoCode).
  */
-final class Promo
+final readonly class Promo
 {
-    /** @var array<string, array{percent?: int, amount?: int, minimum?: int}> */
-    private const CODES = [
+    /**
+     * The website's two codes. The shared price cases use them, and the
+     * database seeder adds them to promo_codes.
+     *
+     * @var array<string, array{percent?: int, amount?: int, minimum?: int}>
+     */
+    public const WEBSITE = [
         'WELCOME10' => ['percent' => 10],
         'SAVE2' => ['amount' => 200, 'minimum' => 1000],
     ];
+
+    public function __construct(
+        public string $code,
+        public ?int $percent = null,
+        public ?int $amount = null,
+        public int $minimum = 0,
+    ) {}
 
     public static function normalize(string $code): string
     {
         return strtoupper(trim($code));
     }
 
-    public static function problem(string $code, int $amountCents): PromoProblem
+    /** One of the website's codes, or null. */
+    public static function website(string $code): ?self
     {
-        $promo = self::CODES[self::normalize($code)] ?? null;
-        if ($promo === null) {
-            return PromoProblem::Unknown;
-        }
+        $code = self::normalize($code);
+        $rule = self::WEBSITE[$code] ?? null;
 
-        return $amountCents < ($promo['minimum'] ?? 0) ? PromoProblem::Minimum : PromoProblem::None;
+        return $rule === null ? null : new self($code, $rule['percent'] ?? null, $rule['amount'] ?? null, $rule['minimum'] ?? 0);
     }
 
-    /** The smallest order, in cents, the code works on. 0 when there is none. */
-    public static function minimum(string $code): int
+    public function problem(int $amountCents): PromoProblem
     {
-        return self::CODES[self::normalize($code)]['minimum'] ?? 0;
+        return $amountCents < $this->minimum ? PromoProblem::Minimum : PromoProblem::None;
     }
 
     /** Never more than the amount, so a total can't go below zero. */
-    public static function discount(string $code, int $amountCents): int
+    public function discount(int $amountCents): int
     {
-        if (trim($code) === '' || self::problem($code, $amountCents) !== PromoProblem::None) {
+        if ($this->problem($amountCents) !== PromoProblem::None) {
             return 0;
         }
-        $promo = self::CODES[self::normalize($code)];
         // Half a cent rounds up: 10% of $10.05 is $1.01.
-        $discount = isset($promo['percent'])
-            ? intdiv($amountCents * $promo['percent'] + 50, 100)
-            : $promo['amount'];
+        $discount = $this->percent !== null
+            ? intdiv($amountCents * $this->percent + 50, 100)
+            : (int) $this->amount;
 
         return min($discount, $amountCents);
+    }
+
+    /** "10% off" or "$2.00 off". */
+    public function label(): string
+    {
+        return $this->percent !== null ? "{$this->percent}% off" : Money::format((int) $this->amount).' off';
     }
 }

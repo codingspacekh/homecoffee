@@ -13,12 +13,12 @@ final readonly class OrderTotals
     ) {}
 
     /** @param  list<CartLine>  $cart */
-    public static function for(array $cart, int $points = 0, bool $useReward = false, string $promoCode = ''): self
+    public static function for(array $cart, int $points = 0, bool $useReward = false, ?Promo $promo = null): self
     {
         $subtotal = array_sum(array_map(fn (CartLine $line) => $line->lineCents(), $cart));
         $discount = $useReward ? Loyalty::rewardDiscount($cart, $points) : 0;
         $afterReward = $subtotal - $discount;
-        $promoAmount = Promo::discount($promoCode, $afterReward);
+        $promoAmount = $promo?->discount($afterReward) ?? 0;
 
         return new self($subtotal, $discount, $promoAmount, $afterReward - $promoAmount);
     }
