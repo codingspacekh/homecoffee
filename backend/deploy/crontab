@@ -1,0 +1,3 @@
+# crontab -u homecoffee deploy/crontab
+# Runs the jobs in routes/console.php: nightly backups and cleanup.
+* * * * * cd /var/www/homecoffee/backend && php artisan schedule:run >> /dev/null 2>&1
