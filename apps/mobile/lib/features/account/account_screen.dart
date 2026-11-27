@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:homecoffee_data/homecoffee_data.dart';
 import 'package:material_ui/material_ui.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/l10n.dart';
 import '../../core/problems.dart';
@@ -11,7 +12,8 @@ import '../checkout/checkout_screen.dart' show phonePattern;
 import '../welcome/welcome_screen.dart';
 
 /// Your profile (or Sign in), then settings: language, light or dark, order
-/// alerts, the welcome screens again, sign out and forget my data.
+/// alerts, the welcome screens again, the privacy policy, sign out and forget
+/// my data.
 class AccountScreen extends ConsumerWidget {
   const AccountScreen({super.key});
 
@@ -165,12 +167,27 @@ class AccountScreen extends ConsumerWidget {
               color: scheme.surfaceContainerLow,
               borderRadius: BorderRadius.circular(16),
               clipBehavior: Clip.antiAlias,
-              child: ListTile(
-                minTileHeight: 56,
-                leading: const Icon(Icons.waving_hand_outlined),
-                title: Text(t.showWelcomeAgain),
-                trailing: const Icon(Icons.chevron_right),
-                onTap: notifier.showWelcomeAgain,
+              child: Column(
+                children: [
+                  ListTile(
+                    minTileHeight: 56,
+                    leading: const Icon(Icons.waving_hand_outlined),
+                    title: Text(t.showWelcomeAgain),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: notifier.showWelcomeAgain,
+                  ),
+                  Divider(height: 1, color: scheme.outlineVariant),
+                  ListTile(
+                    minTileHeight: 56,
+                    leading: const Icon(Icons.privacy_tip_outlined),
+                    title: Text(t.privacyPolicy),
+                    trailing: const Icon(Icons.open_in_new),
+                    onTap: () => launchUrl(
+                      privacyPolicyUrl,
+                      mode: LaunchMode.inAppBrowserView,
+                    ),
+                  ),
+                ],
               ),
             ),
             if (account != null) ...[
@@ -206,6 +223,10 @@ class AccountScreen extends ConsumerWidget {
     );
   }
 }
+
+/// The privacy page on the same server as the API, which the app stores ask
+/// for inside the app too.
+final privacyPolicyUrl = Uri.parse(apiUrl).replace(path: '/privacy');
 
 Future<void> _forget(BuildContext context, WidgetRef ref) async {
   final t = context.l10n;

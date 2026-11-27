@@ -211,6 +211,12 @@ abstract class L10n {
   /// **'Show welcome screens again'**
   String get showWelcomeAgain;
 
+  /// No description provided for @privacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy policy'**
+  String get privacyPolicy;
+
   /// No description provided for @tabMenu.
   ///
   /// In en, this message translates to:

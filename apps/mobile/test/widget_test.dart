@@ -3,6 +3,8 @@ import 'package:homecoffee/core/settings/settings.dart';
 import 'package:homecoffee/features/cart/presentation/cart_notifier.dart';
 import 'package:homecoffee/features/menu/data/menu_providers.dart';
 import 'package:material_ui/material_ui.dart';
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
 
 import 'fixtures.dart';
 
@@ -169,4 +171,29 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('ការកំណត់'), findsOneWidget); // Settings
   });
+
+  testWidgets('Account opens the privacy policy on the server', (tester) async {
+    final launcher = _FakeLauncher();
+    UrlLauncherPlatform.instance = launcher;
+    await pumpApp(tester);
+    await tester.tap(find.text('Account'));
+    await tester.pumpAndSettle();
+
+    await tester.scrollUntilVisible(find.text('Privacy policy'), 200);
+    await tester.tap(find.text('Privacy policy'));
+    await tester.pumpAndSettle();
+    expect(launcher.opened, ['http://localhost:8000/privacy']);
+  });
+}
+
+class _FakeLauncher extends Fake
+    with MockPlatformInterfaceMixin
+    implements UrlLauncherPlatform {
+  final opened = <String>[];
+
+  @override
+  Future<bool> launchUrl(String url, LaunchOptions options) async {
+    opened.add(url);
+    return true;
+  }
 }
