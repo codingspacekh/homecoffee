@@ -9,8 +9,11 @@ environment:
 
 dependencies:
   dio: ^5.11.1
+  web_socket_channel: ^3.0.3
   homecoffee_domain:
 
 dev_dependencies:
+  async: ^2.13.0
+  stream_channel: ^2.1.4
   lints: ^6.0.0
   test: ^1.26.0

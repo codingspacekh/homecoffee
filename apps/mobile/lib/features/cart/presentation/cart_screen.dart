@@ -4,11 +4,12 @@ import 'package:homecoffee_domain/homecoffee_domain.dart';
 import 'package:material_ui/material_ui.dart';
 
 import '../../../core/l10n.dart';
+import '../../auth/sign_in_screen.dart';
 import '../../menu/presentation/product_image.dart';
 import 'cart_notifier.dart';
 
 /// The cart: each line with its choices and a quantity stepper, the points
-/// this order earns, and the subtotal. Checkout comes with accounts.
+/// this order earns, and the subtotal, then on to checkout.
 class CartScreen extends ConsumerWidget {
   const CartScreen({super.key});
 
@@ -143,9 +144,7 @@ class CartScreen extends ConsumerWidget {
                           minimumSize: const Size.fromHeight(56),
                           textStyle: context.largeButtonText,
                         ),
-                        onPressed: () => ScaffoldMessenger.of(context)
-                          ..hideCurrentSnackBar()
-                          ..showSnackBar(SnackBar(content: Text(t.comingSoon))),
+                        onPressed: () => openCheckout(context, ref),
                         child: Text(t.toCheckout),
                       ),
                     ],

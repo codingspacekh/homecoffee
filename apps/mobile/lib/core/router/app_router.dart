@@ -3,9 +3,12 @@ import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 
 import '../../features/account/account_screen.dart';
+import '../../features/auth/sign_in_screen.dart';
 import '../../features/cart/presentation/cart_screen.dart';
+import '../../features/checkout/checkout_screen.dart';
 import '../../features/menu/presentation/menu_screen.dart';
 import '../../features/menu/presentation/product_screen.dart';
+import '../../features/orders/order_status_screen.dart';
 import '../../features/orders/orders_screen.dart';
 import '../../features/rewards/rewards_screen.dart';
 import '../../features/shell/app_shell.dart';
@@ -68,6 +71,17 @@ final routerProvider = Provider<GoRouter>((ref) {
             ProductScreen(id: int.parse(state.pathParameters['id']!)),
       ),
       GoRoute(path: '/cart', builder: (_, _) => const CartScreen()),
+      GoRoute(
+        path: '/sign-in',
+        builder: (_, state) =>
+            SignInScreen(next: state.uri.queryParameters['next']),
+      ),
+      GoRoute(path: '/checkout', builder: (_, _) => const CheckoutScreen()),
+      GoRoute(
+        path: '/order/:id',
+        builder: (_, state) =>
+            OrderStatusScreen(id: int.parse(state.pathParameters['id']!)),
+      ),
     ],
   );
   ref.onDispose(() {

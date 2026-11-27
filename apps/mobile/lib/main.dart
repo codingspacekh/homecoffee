@@ -3,6 +3,8 @@ import 'package:material_ui/material_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app.dart';
+import 'core/session/session.dart';
+import 'core/session/token_store.dart';
 import 'core/settings/settings.dart';
 
 Future<void> main() async {
@@ -10,9 +12,13 @@ Future<void> main() async {
   final preferences = await SharedPreferencesWithCache.create(
     cacheOptions: const SharedPreferencesWithCacheOptions(),
   );
+  final tokens = await SecureTokenStore.load();
   runApp(
     ProviderScope(
-      overrides: [preferencesProvider.overrideWithValue(preferences)],
+      overrides: [
+        preferencesProvider.overrideWithValue(preferences),
+        tokenStoreProvider.overrideWithValue(tokens),
+      ],
       child: const HomeCoffeeApp(),
     ),
   );

@@ -152,7 +152,6 @@
       }
     }
   },
-  "comingSoon": "Coming in a later version",
   "noOrders": "No past orders yet",
   "noOrdersHint": "Orders you place will show here, so you can track them and order again.",
   "howItWorks": "How it works",
@@ -173,5 +172,256 @@
         "type": "int"
       }
     }
-  }
+  },
+  "checkout": "Checkout",
+  "pickupTime": "Pickup time",
+  "asap": "As soon as possible",
+  "readyInAbout": "Ready in about {minutes} min",
+  "@readyInAbout": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "scheduleLater": "Schedule for later",
+  "chooseTimeBelow": "Choose a time below",
+  "noSlotsToday": "No more pickup times today",
+  "yourDetails": "Your details",
+  "name": "Name",
+  "phone": "Phone number",
+  "phoneHelp": "We only call if there’s a problem with your order.",
+  "errName": "Please enter your name",
+  "errPhoneMissing": "Please enter your phone number",
+  "errPhone": "Please enter a valid phone number",
+  "rewardsPromo": "Rewards and promo code",
+  "useReward": "Use my free drink (−{amount})",
+  "@useReward": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "freeDrink": "Free drink",
+  "promo": "Promo code",
+  "apply": "Apply",
+  "promoApplied": "{code} applied",
+  "@promoApplied": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "promoLine": "Promo {code}",
+  "@promoLine": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "removePromo": "Remove promo code {code}",
+  "@removePromo": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "errPromoEmpty": "Please enter a promo code",
+  "errPromoUnknown": "That code isn’t valid",
+  "errPromoMin": "{code} needs an order of {minimum} or more",
+  "@errPromoMin": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      },
+      "minimum": {
+        "type": "String"
+      }
+    }
+  },
+  "remainingPoints": "{count} more points for a free drink",
+  "@remainingPoints": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "haveReward": "You have a free drink! Turn it on at checkout.",
+  "payment": "Payment",
+  "payCounter": "Pay at the counter",
+  "payKhqr": "Pay with KHQR",
+  "soon": "Coming soon",
+  "summary": "Order summary",
+  "total": "Total",
+  "placeOrder": "Place order",
+  "checkFields": "Please check the highlighted fields",
+  "statusTitle": "Order status",
+  "showNumber": "Show this number at the counter",
+  "statusReceived": "Received",
+  "statusPreparing": "Preparing",
+  "statusReady": "Ready",
+  "statusCollected": "Picked up",
+  "statusCancelled": "Cancelled",
+  "receivedText": "We’ve got your order. Ready around {time}.",
+  "@receivedText": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "preparingText": "We’re making your order. Ready around {time}.",
+  "@preparingText": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "readyText": "Your order is ready to pick up!",
+  "collectedText": "Picked up. Enjoy!",
+  "cancelledText": "This order was cancelled.",
+  "pickupAsap": "Pickup as soon as possible",
+  "pickupAt": "Pickup at {time}",
+  "@pickupAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "notifyMe": "Notify me when it’s ready",
+  "earnedTitle": "+{points} points",
+  "@earnedTitle": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
+  "earnedBody": "You now have {balance} points.",
+  "@earnedBody": {
+    "placeholders": {
+      "balance": {
+        "type": "int"
+      }
+    }
+  },
+  "rewardReady": "You’ve earned a free drink! Use it on your next order.",
+  "items": "Items",
+  "backToMenu": "Back to menu",
+  "close": "Close",
+  "cancelOrder": "Cancel order",
+  "cancelOrderTitle": "Cancel this order?",
+  "cancelOrderBody": "The barista hasn’t started it yet. A free drink you used goes back to your points.",
+  "keepOrder": "Keep order",
+  "orderCancelled": "Order cancelled",
+  "orderMissing": "We couldn’t load this order.",
+  "inProgress": "In progress",
+  "pastOrders": "Past orders",
+  "track": "Track",
+  "reorder": "Reorder",
+  "reorderLabel": "Reorder order #{number}",
+  "@reorderLabel": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "reordered": "Order #{number} added to cart",
+  "@reordered": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "reorderMissing": "Those items aren’t on the menu now",
+  "loadMore": "Show more",
+  "pointsOutOf": "/ {total} points",
+  "@pointsOutOf": {
+    "placeholders": {
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "pointsLabel": "Points",
+  "pointsHistory": "Points history",
+  "orderNumber": "Order #{number}",
+  "@orderNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "rewardUsed": "Free drink used",
+  "rewardRefunded": "Free drink given back",
+  "pointsAdjusted": "Changed by the shop",
+  "noPointsYet": "No points yet. Your first order starts it.",
+  "edit": "Edit",
+  "signOut": "Sign out",
+  "forgetRow": "Forget my data",
+  "forgetTitle": "Forget your data?",
+  "forgetBody": "This deletes your account, points and favourites. Past orders stay in the shop’s records without your name or phone.",
+  "cancel": "Cancel",
+  "forget": "Forget",
+  "forgotten": "Your data was removed",
+  "addName": "Add your name",
+  "save": "Save",
+  "saved": "Saved",
+  "signIn": "Sign in",
+  "signInTitle": "Sign in to order",
+  "signInBody": "Enter your email and we’ll send you a 6-digit code. No password needed.",
+  "signInHint": "Sign in to keep your points and see your orders on any phone.",
+  "email": "Email",
+  "sendCode": "Send code",
+  "errEmail": "Please enter a valid email address",
+  "codeTitle": "Check your email",
+  "codeBody": "We sent a 6-digit code to {email}. It works for 10 minutes.",
+  "@codeBody": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "code": "Code",
+  "errCode": "Please enter the 6 digits from the email",
+  "errCodeWrong": "{count, plural, =0{That code isn’t right. Send a new code.} =1{That code isn’t right. 1 try left.} other{That code isn’t right. {count} tries left.}}",
+  "@errCodeWrong": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "errCodeExpired": "This code has expired. Send a new one.",
+  "sendNewCode": "Send a new code",
+  "codeSent": "We sent a new code",
+  "otherEmail": "Use another email",
+  "errOffline": "No connection. Check your internet and try again.",
+  "errTooMany": "Too many tries. Please wait a minute.",
+  "errServer": "Something went wrong. Please try again.",
+  "errSignedOut": "Please sign in again.",
+  "errItemUnavailable": "{name} is sold out now. Remove it to continue.",
+  "@errItemUnavailable": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "errNoPoints": "You don’t have enough points for a free drink.",
+  "errStoreClosed": "The shop is closed right now. Choose a pickup time later today.",
+  "errOrdersPaused": "The shop isn’t taking app orders right now. Please try again soon.",
+  "errPickupTime": "Please choose a later pickup time while the shop is open.",
+  "errNotCancellable": "The barista has started this order, so it can’t be cancelled now."
 }

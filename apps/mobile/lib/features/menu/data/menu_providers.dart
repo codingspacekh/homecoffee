@@ -1,12 +1,10 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:homecoffee_data/homecoffee_data.dart';
 import 'package:homecoffee_domain/homecoffee_domain.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../core/session/session.dart';
 import '../../../core/settings/settings.dart';
-
-final apiClientProvider = Provider<Dio>((ref) => createApiClient());
 
 /// Keeps the last downloaded menu on the phone, so the menu opens with no
 /// signal and the server can answer 304 when nothing changed.
@@ -64,26 +62,57 @@ final storeRepositoryProvider = Provider<StoreRepository>(
 final storeProvider = FutureProvider<StoreInfo?>((ref) async {
   try {
     return await ref.watch(storeRepositoryProvider).fetchStore();
-  } on DioException {
+  } on ApiProblem {
     return null;
   }
 });
 
-/// Product ids with a heart, kept on the phone. They move to the account
-/// once customers can sign in.
+/// Product ids with a heart. Kept on the phone, and in the account once the
+/// customer signs in, so they follow them to a new phone.
 class FavouritesNotifier extends Notifier<Set<int>> {
   static const _key = 'favourites';
 
   @override
-  Set<int> build() => {
-    for (final id in ref.watch(preferencesProvider).getStringList(_key) ?? [])
-      ?int.tryParse(id),
-  };
+  Set<int> build() {
+    ref.listen(sessionProvider.select((s) => s?.account.id), (before, after) {
+      if (after != null && after != before) _syncWithAccount();
+    });
+    return {
+      for (final id in ref.watch(preferencesProvider).getStringList(_key) ?? [])
+        ?int.tryParse(id),
+    };
+  }
 
   void toggle(int id) {
-    state = state.contains(id) ? ({...state}..remove(id)) : {...state, id};
+    final on = !state.contains(id);
+    _save(on ? {...state, id} : ({...state}..remove(id)));
+    if (ref.read(signedInProvider)) {
+      ref
+          .read(profileRepositoryProvider)
+          .setFavourite(id, on: on)
+          .catchError((Object _) {});
+    }
+  }
+
+  /// After sign-in: hearts from this phone go up to the account, and the
+  /// account's hearts come down to this phone.
+  Future<void> _syncWithAccount() async {
+    final profile = ref.read(profileRepositoryProvider);
+    try {
+      final saved = await profile.fetchFavourites();
+      for (final id in state.difference(saved)) {
+        await profile.setFavourite(id, on: true);
+      }
+      _save({...state, ...saved});
+    } on ApiProblem {
+      // No signal: try again next sign-in
+    }
+  }
+
+  void _save(Set<int> ids) {
+    state = ids;
     ref.read(preferencesProvider).setStringList(_key, [
-      for (final id in state) '$id',
+      for (final id in ids) '$id',
     ]);
   }
 }

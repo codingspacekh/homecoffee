@@ -107,6 +107,18 @@ Start the backend first (`php artisan serve`). The app keeps the last menu it
 downloaded and its photos on the phone, so after one successful start it opens
 with no signal too.
 
+For live order status, also run `php artisan reverb:start` and give the app
+Reverb's address with your `REVERB_APP_KEY` from `backend/.env`:
+
+```sh
+flutter run --dart-define=REVERB_URL=ws://localhost:8080/app/<REVERB_APP_KEY>
+```
+
+Without `REVERB_URL` the order screen asks the server for news every 10
+seconds instead. Sign-in codes go to `backend/storage/logs/laravel.log` while
+`MAIL_MAILER=log`. The sign-in token is kept in the Keychain (iOS) or
+Keystore-backed storage (Android), not in plain preferences.
+
 App text lives in `apps/mobile/lib/l10n/app_en.arb` and `app_km.arb`. After
 editing either, run `flutter gen-l10n` in `apps/mobile` (a build also does it).
 Every key needs both languages.
