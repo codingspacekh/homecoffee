@@ -111,8 +111,8 @@ class OrdersBoard extends Page
         if ($moved !== null) {
             Notification::make()
                 ->title($moved->status === OrderStatus::Cancelled
-                    ? "Order {$moved->number()} was cancelled"
-                    : "Order {$moved->number()} was already moved")
+                    ? "Order #{$moved->number()} was cancelled"
+                    : "Order #{$moved->number()} was already moved")
                 ->warning()
                 ->send();
         }
@@ -126,7 +126,7 @@ class OrdersBoard extends Page
             ->color('danger')
             ->link()
             ->size('sm')
-            ->modalHeading(fn (array $arguments) => 'Cancel order '.(Order::find($arguments['order'] ?? 0)?->number() ?? ''))
+            ->modalHeading(fn (array $arguments) => 'Cancel order #'.(Order::find($arguments['order'] ?? 0)?->number() ?? ''))
             ->modalDescription('The customer sees the reason in the app. A free drink they used goes back to their points.')
             ->modalSubmitActionLabel('Cancel order')
             ->modalCancelActionLabel('Keep order')
@@ -141,9 +141,9 @@ class OrdersBoard extends Page
                 $order = Order::findOrFail($arguments['order']);
                 try {
                     app(CancelOrder::class)->handle($order, byCustomer: false, reason: $data['reason']);
-                    Notification::make()->title("Order {$order->number()} cancelled")->success()->send();
+                    Notification::make()->title("Order #{$order->number()} cancelled")->success()->send();
                 } catch (ApiProblem) {
-                    Notification::make()->title("Order {$order->number()} is already finished")->warning()->send();
+                    Notification::make()->title("Order #{$order->number()} is already finished")->warning()->send();
                 }
                 unset($this->columns);
             });

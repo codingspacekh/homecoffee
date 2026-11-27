@@ -81,7 +81,7 @@ it('does not skip a step when two tablets tap the same order', function () {
     $second = livewire(OrdersBoard::class);
 
     $first->call('advance', $order->id, 'received');
-    $second->call('advance', $order->id, 'received')->assertNotified("Order {$order->number()} was already moved");
+    $second->call('advance', $order->id, 'received')->assertNotified("Order #{$order->number()} was already moved");
 
     expect($order->refresh()->status)->toBe(OrderStatus::Preparing);
 });
@@ -91,7 +91,7 @@ it('says so when the customer cancelled before the tap', function () {
 
     livewire(OrdersBoard::class)
         ->call('advance', $order->id, 'received')
-        ->assertNotified("Order {$order->number()} was cancelled");
+        ->assertNotified("Order #{$order->number()} was cancelled");
 });
 
 it('cancels an order with a reason the customer can read', function () {
@@ -100,7 +100,7 @@ it('cancels an order with a reason the customer can read', function () {
     livewire(OrdersBoard::class)
         ->callAction('cancel', ['reason' => 'Out of oat milk'], ['order' => $order->id])
         ->assertHasNoFormErrors()
-        ->assertNotified("Order {$order->number()} cancelled");
+        ->assertNotified("Order #{$order->number()} cancelled");
 
     expect($order->refresh())
         ->status->toBe(OrderStatus::Cancelled)

@@ -30,10 +30,10 @@
         .hc-card-primary { border-left-color: var(--primary-500); }
         .hc-card-success { border-left-color: var(--success-500); }
         .hc-card.hc-late { box-shadow: 0 0 0 2px var(--danger-500); }
-        .hc-top { display: flex; align-items: baseline; justify-content: space-between; gap: .5rem; }
+        .hc-top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; column-gap: .75rem; }
         .hc-number { font-size: 1.75rem; font-weight: 800; line-height: 1.1; color: var(--gray-950); }
         .dark .hc-number { color: white; }
-        .hc-when { font-size: .9375rem; font-weight: 700; color: var(--gray-700); text-align: right; }
+        .hc-when { font-size: .9375rem; font-weight: 700; color: var(--gray-700); white-space: nowrap; }
         .dark .hc-when { color: var(--gray-200); }
         .hc-late-label { color: var(--danger-600); }
         .dark .hc-late-label { color: var(--danger-400); }

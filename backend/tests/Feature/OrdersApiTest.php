@@ -155,6 +155,12 @@ describe('placing an order', function () {
         expect($this->customer->refresh())->toMatchArray(['name' => 'Dara', 'phone' => '012 345 678', 'points' => 0]);
     });
 
+    it('names a yes-or-no choice by its group on the receipt', function () {
+        placeOrder(['lines' => [['product_id' => 14, 'options' => ['Extra shot' => 'Yes']]]])->assertCreated()
+            ->assertJsonPath('lines.0.choices', 'Extra shot')
+            ->assertJsonPath('lines.0.translations.km.choices', Product::find(14)->options[2]['name']['km']);
+    });
+
     it('makes one order when the same request arrives twice', function () {
         $first = placeOrder()->assertCreated();
         $again = placeOrder()->assertOk();
