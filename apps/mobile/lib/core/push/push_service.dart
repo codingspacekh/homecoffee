@@ -12,9 +12,9 @@ class PushNotice {
   final String title;
 }
 
-/// "Your order is ready" notifications. [FirebasePushService] on a phone
-/// built with the Firebase settings; [NoPushService] on the web, in tests
-/// and in builds without them.
+/// "Your order is ready" notifications. For now the app uses
+/// [NoPushService], so nothing is sent to the phone. Adding Firebase Cloud
+/// Messaging later means one class that implements this, created in main().
 abstract interface class PushService {
   /// False when this build can't receive pushes at all.
   bool get available;
