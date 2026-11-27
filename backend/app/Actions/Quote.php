@@ -27,7 +27,7 @@ final readonly class Quote
         return $this->totals->discount > 0 ? Loyalty::REWARD_POINTS : 0;
     }
 
-    /** The non-default choices as text: "Large, Oat". */
+    /** The non-default choices as text: "Large, Oat, Extra shot". */
     public function choicesText(CartLine $line, string $language): string
     {
         $product = $this->products[$line->product->id];
@@ -36,7 +36,9 @@ final readonly class Quote
             $chosen = $line->options[$group['name']['en']] ?? null;
             foreach (array_slice($group['choices'], 1) as $choice) {
                 if ($choice['label']['en'] === $chosen) {
-                    $parts[] = filled($choice['label'][$language] ?? null) ? $choice['label'][$language] : $choice['label']['en'];
+                    // A yes-or-no group reads as its name: "Extra shot", not "Yes"
+                    $label = $chosen === 'Yes' ? $group['name'] : $choice['label'];
+                    $parts[] = filled($label[$language] ?? null) ? $label[$language] : $label['en'];
                 }
             }
         }

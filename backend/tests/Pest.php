@@ -1,5 +1,8 @@
 <?php
 
+use App\Enums\OrderStatus;
+use App\Models\Order;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -44,7 +47,29 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+/** An open order straight in the database, for tests that start after checkout. */
+function makeOrder(array $attributes = [], ?User $user = null): Order
 {
-    // ..
+    $user ??= User::factory()->create();
+    $order = Order::forceCreate([
+        'user_id' => $user->id,
+        'status' => OrderStatus::Received,
+        'customer_name' => 'Dara',
+        'customer_phone' => '012 345 678',
+        'estimated_ready_at' => now()->addMinutes(10),
+        'subtotal_cents' => 535,
+        'total_cents' => 535,
+        ...$attributes,
+    ]);
+    $order->lines()->forceCreate([
+        'name' => ['en' => 'Cappuccino', 'km' => 'កាពូឈីណូ'],
+        'options' => ['Size' => 'Large', 'Milk' => 'Oat'],
+        'choices' => ['en' => 'Large, Oat milk'],
+        'note' => 'extra hot',
+        'unit_cents' => 535,
+        'quantity' => 1,
+        'line_cents' => 535,
+    ]);
+
+    return $order;
 }

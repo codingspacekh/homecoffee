@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\DeviceController;
 use App\Http\Controllers\Api\V1\MenuController;
 use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\ProfileController;
@@ -24,6 +25,8 @@ Route::prefix('v1')->middleware('throttle:api')->group(function () {
         Route::put('me/favourites/{product}', [ProfileController::class, 'addFavourite']);
         Route::delete('me/favourites/{product}', [ProfileController::class, 'removeFavourite']);
         Route::get('me/points', [ProfileController::class, 'points']);
+        Route::post('me/devices', [DeviceController::class, 'store']);
+        Route::delete('me/devices', [DeviceController::class, 'destroy']);
 
         Route::post('checkout/quote', [OrderController::class, 'quote']);
         Route::post('orders', [OrderController::class, 'store'])->middleware('throttle:orders');

@@ -55,6 +55,12 @@ class User extends Authenticatable implements FilamentUser
         return $this->role->isStaff();
     }
 
+    /** @return HasMany<Device, $this> */
+    public function devices(): HasMany
+    {
+        return $this->hasMany(Device::class);
+    }
+
     /** @return HasMany<Order, $this> */
     public function orders(): HasMany
     {

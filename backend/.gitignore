@@ -28,3 +28,7 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Firebase service account keys never go in the repository
+/storage/firebase*.json
+*-firebase-adminsdk-*.json
