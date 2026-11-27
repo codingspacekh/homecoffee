@@ -693,4 +693,11 @@ class L10nKm extends L10n {
   @override
   String get errNotCancellable =>
       'បារីស្តាបានចាប់ផ្តើមធ្វើការបញ្ជាទិញនេះហើយ ដូច្នេះមិនអាចបោះបង់បានទេ។';
+
+  @override
+  String get alertsBlocked =>
+      'ការជូនដំណឹងរបស់ HomeCoffee ត្រូវបានបិទ។ សូមបើកវានៅក្នុងការកំណត់ទូរស័ព្ទរបស់អ្នក។';
+
+  @override
+  String get viewOrder => 'មើល';
 }

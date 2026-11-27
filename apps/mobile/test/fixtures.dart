@@ -6,6 +6,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:homecoffee/app.dart';
+import 'package:homecoffee/core/push/push_service.dart';
 import 'package:homecoffee/core/session/session.dart';
 import 'package:homecoffee/core/session/token_store.dart';
 import 'package:homecoffee/features/orders/data/orders_providers.dart';
@@ -114,7 +115,8 @@ class TestBackend
         AuthRepository,
         ProfileRepository,
         OrdersRepository,
-        OrderUpdates {
+        OrderUpdates,
+        DeviceRepository {
   TestBackend({this.account = dara});
 
   Account account;
@@ -123,6 +125,12 @@ class TestBackend
   final codesSent = <String>[];
   final favourites = <int>{};
   var signedOut = false;
+
+  /// Push tokens saved for this customer, with their platform.
+  final devices = <String, String>{};
+
+  /// Each device call, with whether the customer was still signed in.
+  final deviceCalls = <String>[];
   final _live = <int, StreamController<StatusEvent>>{};
 
   // Sign-in
@@ -266,6 +274,45 @@ class TestBackend
     return orders[id] = _with(order, OrderStatus.cancelled);
   }
 
+  // Phones for pushes
+
+  @override
+  Future<void> save(String token, {required String platform}) async {
+    deviceCalls.add('save $token${signedOut ? ' (signed out)' : ''}');
+    devices[token] = platform;
+  }
+
+  @override
+  Future<void> forget(String token) async {
+    deviceCalls.add('forget $token${signedOut ? ' (signed out)' : ''}');
+    devices.remove(token);
+  }
+
+  /// An order the customer placed earlier, ready at the counter.
+  Order addReadyOrder({int id = 42}) {
+    final order = Order(
+      id: id,
+      number: 1000 + id,
+      status: OrderStatus.received,
+      customerName: account.name ?? 'Dara',
+      estimatedReadyAt: DateTime(2026, 11, 27, 9, 7),
+      createdAt: DateTime(2026, 11, 27, 9),
+      subtotalCents: 375,
+      totalCents: 375,
+      lines: [
+        OrderLine(
+          productId: 12,
+          name: 'Cappuccino',
+          options: const {'Size': 'Small'},
+          unitCents: 375,
+          quantity: 1,
+          lineCents: 375,
+        ),
+      ],
+    );
+    return orders[id] = _with(order, OrderStatus.ready);
+  }
+
   /// The barista moves the order on, and Reverb tells the phone.
   void advance(int id, OrderStatus status) {
     orders[id] = _with(orders[id]!, status);
@@ -337,6 +384,8 @@ Future<ProviderContainer> pumpApp(
   TestBackend? backend,
   bool signedIn = false,
   bool storeOpen = true,
+  bool orderAlerts = false,
+  PushService push = const NoPushService(),
 }) async {
   final server = backend ?? TestBackend();
   // A 390 x 844 phone, like the prototype
@@ -346,6 +395,7 @@ Future<ProviderContainer> pumpApp(
   final prefs = await emptyPreferences({
     'settings.welcomed': welcomed,
     'settings.language': ?language,
+    'settings.orderAlerts': orderAlerts,
     if (signedIn) 'account': jsonEncode(server.account.toJson()),
   });
   final container = ProviderContainer(
@@ -362,6 +412,8 @@ Future<ProviderContainer> pumpApp(
       profileRepositoryProvider.overrideWithValue(server),
       ordersRepositoryProvider.overrideWithValue(server),
       orderUpdatesProvider.overrideWithValue(server),
+      deviceRepositoryProvider.overrideWithValue(server),
+      pushServiceProvider.overrideWithValue(push),
       orderPollingProvider.overrideWithValue(null),
       clockProvider.overrideWithValue(() => DateTime(2026, 11, 27, 9)),
     ],

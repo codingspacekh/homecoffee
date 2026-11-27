@@ -4,6 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:homecoffee_data/homecoffee_data.dart';
 
+import '../push/push_registration.dart';
+import '../push/push_service.dart';
 import '../settings/settings.dart';
 import 'token_store.dart';
 
@@ -87,6 +89,13 @@ class SessionNotifier extends Notifier<Session?> {
   }
 
   Future<void> signOut() async {
+    // Stop pushes to this phone first, while the request is still signed in
+    await forgetThisPhone(
+      push: ref.read(pushServiceProvider),
+      devices: ref.read(deviceRepositoryProvider),
+      preferences: ref.read(preferencesProvider),
+      signedIn: true,
+    );
     try {
       await ref.read(authRepositoryProvider).signOut();
     } on ApiProblem {

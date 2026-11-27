@@ -423,5 +423,9 @@
   "errStoreClosed": "The shop is closed right now. Choose a pickup time later today.",
   "errOrdersPaused": "The shop isn’t taking app orders right now. Please try again soon.",
   "errPickupTime": "Please choose a later pickup time while the shop is open.",
-  "errNotCancellable": "The barista has started this order, so it can’t be cancelled now."
+  "errNotCancellable": "The barista has started this order, so it can’t be cancelled now.",
+  "alertsBlocked": "Notifications are off for HomeCoffee. Turn them on in your phone’s settings.",
+  "@alertsBlocked": {"description": "Snack bar when the customer turns on order alerts but said no to notifications on the system prompt"},
+  "viewOrder": "View",
+  "@viewOrder": {"description": "Snack bar button that opens the order whose ready notification arrived while the app was open"}
 }

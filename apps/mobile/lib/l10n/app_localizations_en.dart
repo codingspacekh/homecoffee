@@ -690,4 +690,11 @@ class L10nEn extends L10n {
   @override
   String get errNotCancellable =>
       'The barista has started this order, so it can’t be cancelled now.';
+
+  @override
+  String get alertsBlocked =>
+      'Notifications are off for HomeCoffee. Turn them on in your phone’s settings.';
+
+  @override
+  String get viewOrder => 'View';
 }

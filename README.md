@@ -150,6 +150,47 @@ seconds instead. Sign-in codes go to `backend/storage/logs/laravel.log` while
 `MAIL_MAILER=log`. The sign-in token is kept in the Keychain (iOS) or
 Keystore-backed storage (Android), not in plain preferences.
 
+### Order-ready pushes
+
+The app saves the phone with the server (`POST /me/devices`) once the
+customer is signed in with **Order-ready alerts** on, and removes it when they
+turn alerts off or sign out. Tapping the notification opens that order. While
+the app is open, the push shows as a bar at the bottom instead.
+
+Pushes need Firebase. Without its settings the app builds and runs as usual,
+just with no pushes (as on the web and in tests). To turn them on:
+
+1. In the Firebase console, add an Android app (`com.codingspacekh.homecoffee`)
+   and an iOS app (same bundle id) to the project from the backend steps.
+2. Copy the values from Project settings > Your apps into
+   `apps/mobile/firebase.json`. Git ignores this file.
+
+   ```json
+   {
+     "FIREBASE_PROJECT_ID": "homecoffee-12345",
+     "FIREBASE_SENDER_ID": "123456789012",
+     "FIREBASE_ANDROID_APP_ID": "1:123456789012:android:abc123",
+     "FIREBASE_ANDROID_API_KEY": "AIza...",
+     "FIREBASE_IOS_APP_ID": "1:123456789012:ios:def456",
+     "FIREBASE_IOS_API_KEY": "AIza..."
+   }
+   ```
+
+   The sender id is the project number. Each app's API key is inside the
+   file the console offers to download for it: `current_key` in
+   google-services.json, `API_KEY` in GoogleService-Info.plist. Copy the key
+   out; the files themselves aren't needed.
+3. Pass the file to every run and build:
+
+   ```sh
+   flutter run --dart-define-from-file=firebase.json
+   ```
+
+   The Android build reads the same file, so Firebase starts with the app and
+   can show a push while the app is closed.
+4. For iOS, upload an APNs key in Firebase (Project settings > Cloud
+   Messaging) and test on a real iPhone; the simulator gets no pushes.
+
 App text lives in `apps/mobile/lib/l10n/app_en.arb` and `app_km.arb`. After
 editing either, run `flutter gen-l10n` in `apps/mobile` (a build also does it).
 Every key needs both languages.
