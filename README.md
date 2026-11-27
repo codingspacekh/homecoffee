@@ -47,6 +47,7 @@ server prices every cart from the products table.
 | GET | `/me/favourites` | Favourite product ids |
 | PUT, DELETE | `/me/favourites/{product}` | Add or remove a favourite |
 | GET | `/me/points` | Points history |
+| POST, DELETE | `/me/devices` | Save or forget this phone's push token (`token`, `platform`: `android` or `ios`) |
 | POST | `/checkout/quote` | Server totals for a cart, promo code and free drink |
 | POST | `/orders` | Places an order. Needs an `Idempotency-Key` header, so a retry never makes two |
 | GET | `/orders`, `/orders/{order}` | Own orders, newest first, with their lines |
@@ -81,6 +82,36 @@ cancelled, and earned when the order is collected.
 
 Open http://localhost:8000/admin and sign in. Only baristas, managers and the
 owner can open the admin panel; customers use the app.
+
+### Orders board
+
+The counter tablet opens http://localhost:8000/admin/board. Open orders sit in
+three columns, New, Preparing and Ready for pickup, soonest due first. The
+board checks for new orders every 5 seconds, and one tap moves an order to the
+next step. If two tablets tap the same order, only the first tap counts. A
+barista can cancel an open order with a reason, which the customer reads in
+the app.
+
+Tap **Turn on sound** once each morning: browsers only play sound and keep the
+screen awake after a tap on the page. The tablet remembers the choice, and the
+board chimes for each new order after that.
+
+### "Your order is ready" pushes
+
+When the barista taps Ready, a queued job sends a push to each phone of that
+customer that turned on order alerts, in the customer's language. Until
+Firebase is set up, the push is written to `storage/logs/laravel.log` instead.
+
+To send real pushes:
+
+1. Create a Firebase project and add the Android and iOS apps to it
+   (package and bundle id `com.codingspacekh.homecoffee`). For iOS, upload an APNs key
+   under Project settings > Cloud Messaging.
+2. Under Project settings > Service accounts, generate a new private key.
+   Keep the JSON file outside the repository, or in `backend/storage/` as
+   `firebase.json` (ignored by git), and set its path as `FCM_CREDENTIALS`.
+3. Keep `php artisan queue:work` running. A push that Firebase can't take is
+   tried 3 times; a phone that no longer has the app is forgotten.
 
 Tests and code style:
 

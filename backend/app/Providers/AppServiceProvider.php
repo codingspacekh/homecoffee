@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Push\FcmPushSender;
+use App\Push\LogPushSender;
+use App\Push\PushSender;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -11,7 +14,12 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        //
+        // Firebase once its key is set, the log until then
+        $this->app->bind(PushSender::class, function () {
+            $credentials = config('services.fcm.credentials');
+
+            return filled($credentials) ? FcmPushSender::fromFile($credentials) : new LogPushSender;
+        });
     }
 
     public function boot(): void

@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    // Firebase Cloud Messaging for "your order is ready". Path to the
+    // service account JSON key; empty writes pushes to the log instead.
+    'fcm' => [
+        'credentials' => env('FCM_CREDENTIALS'),
+    ],
+
 ];
