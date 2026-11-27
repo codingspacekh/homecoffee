@@ -218,19 +218,20 @@ describe('placing an order', function () {
 
 describe('order history', function () {
     it('lists only my orders, newest first', function () {
-        placeOrder();
-        placeOrder(key: 'order-key-0002');
+        // Ids come from the responses: MySQL keeps counting across tests
+        $first = placeOrder()->json('id');
+        $second = placeOrder(key: 'order-key-0002')->json('id');
         $other = User::factory()->create();
         Sanctum::actingAs($other);
-        placeOrder(key: 'order-key-0003');
+        $theirs = placeOrder(key: 'order-key-0003')->json('id');
         Sanctum::actingAs($this->customer);
 
         $response = $this->getJson('/api/v1/orders')->assertOk();
 
-        expect(collect($response->json('data'))->pluck('id')->all())->toBe([2, 1])
+        expect(collect($response->json('data'))->pluck('id')->all())->toBe([$second, $first])
             ->and($response->json('next_page'))->toBeNull();
-        $this->getJson('/api/v1/orders/3')->assertForbidden();
-        $this->postJson('/api/v1/orders/3/cancel')->assertForbidden();
+        $this->getJson("/api/v1/orders/{$theirs}")->assertForbidden();
+        $this->postJson("/api/v1/orders/{$theirs}/cancel")->assertForbidden();
     });
 });
 
